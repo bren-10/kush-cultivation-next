@@ -1,0 +1,27 @@
+.loginRegister {
+  color: #ECECEC;
+  text-align: center;
+  margin: 5rem auto;
+  width: 27%;
+  padding: 3rem;
+  border-radius: 8px;
+  background-color: rgba(29, 29, 29, 0.904);
+}
+
+.loginRegister h1 {
+  margin-bottom: 2rem;
+}
+
+.loginRegister span {
+  text-decoration: underline;
+}
+
+.loginRegister span:hover {
+  text-decoration: unset;
+  cursor: pointer;
+}
+
+.loginRegister .loadingator {
+  width: 2rem !important;
+  filter: brightness(10%);
+}

@@ -1,0 +1,107 @@
+21/08
+
+- Added fully-functioning contact form
+- Small improvements to styling
+
+31/07
+
+- Added Login/registration styling
+- Improved main layout styling (added consistency)
+- Reasearch adding of payment system (Considering going with Ozow)
+
+24/07
+
+- Finalise authentication
+
+18/07
+
+- Improve cart page (sub amounts, subtotals, delete functionality and clear all etc)
+- Start authentication system (login, register, forgot password etc)
+
+17/07
+
+- Flipped item cards from vertical to horizontal (future discussion on which is best)
+- Refined 'add to cart' functionality with a select option function
+
+10/07
+
+- Completed cart layout
+- Cart item count in navbar dynamically updating
+
+12/06
+
+- Limit item descriptions to 100 characters
+- Created "read more" modal for items
+- Placed footer in a fixed position and changed layout to decrease total size
+- Attempted dynamic image cropping - doesn't look great.
+- Started with Cart component
+
+06/06
+
+- Convert new category naming convention to suit typical URL structure
+- Complete full information rendering of item card
+- Add conditionals for rendering price-lists (in case item has sub-categories with sub-pricing)
+
+05/06
+
+- Note for future discussion: One of the carousel slides could display an item on special
+- Render only category-specific items on shop page, dependant on selected category. 
+
+18/05
+
+- Cancel below setup of storage provider (for now, might revisit)
+- Start setup of JSON file to hold item information
+
+16/05
+
+- Started with shop page design
+- Built item card
+- Improved buttons cross-site
+- Start setup of storage provider for holding item information
+
+15/05
+
+- Added react-routing for non-request navigation between components/pages
+- Finalised Gallery page
+- Further improved navigation bar
+
+08/05
+
+- Finalised Visit component:
+- Refined trading hour display
+- Added visit scheduling links
+- Added basic footer, might revisit
+- Started with gallery
+
+02/05
+
+- Dynamic favicon based on browser theme preference
+- Fought the navbar auto-hide function. Didn't win. Will revisit.
+
+27/04
+
+- Finalising Carousel
+- Added social media nav links, including whatsapp communication
+- Added trading hours section
+- Added MainLayout.js background image
+- Started on auto-hide navbar functionality
+
+24/04
+
+- Continued work on carousel
+- Struggled IMMENSELY with functionality to pause carousel when video is playing :(
+- Created & added favicon
+- Improved sizing and responsiveness
+
+18/04
+
+- Started working on carousel
+- Further improved navigation bar
+
+17/04
+
+- Removed Short Video from Splash Page, updating with new content
+- Added splash page animations
+- Conditional rendering of splash page (non-first time viewers won't see the page unless browser data is cleared)
+- Started with main layout page
+- Improved Navigation bar

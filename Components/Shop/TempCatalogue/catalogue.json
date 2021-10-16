@@ -1,0 +1,46 @@
+{
+  "Plant Propagation": {
+    "humidityDome": {
+      "name": "Humidity Dome",
+      "image": "../TempCatalogue/Images/PlantPropagation/Humid-Dome.jpg",
+      "description": "The Humidity Dome is perfect for Germinating or Propagating. Comes with 4 x 6 cell seedling trays.",
+      "readMore": "Humidity domes help improve germination rates of your seeds. Most seeds,  require moisture and warm temperatures to germinate. Essentially an inexpensive plastic cover, a humidity dome, helps maintain ideal humidity and temperature levels in the tray to maximize seed germination. This clear dome allows light to pass through while trapping heat and moisture inside for quick germination. Applying heat to the bottom of a flat as the seeds germinate will increase your success and ensure a healthy root system.  Should you wish to add heat, purchase the heating pad.",
+      "dimensions": "39 x 30 x 16.5 cm",
+      "stock": 10,
+      "priceList": {
+        "standalone": 150
+      }
+    },
+
+    "eazyPlugPlugs": {
+      "name": "EazyPlug Plugs",
+      "image": "../TempCatalogue/Images/PlantPropagation/EazyPlug-Plugs.jpg",
+      "description": "Eazyplug Pyramid and Block Air pruning. EazyPlug: 100% success rate. EazyPlug has, with its organic materials and our special way of bonding, a predetermined pH and EC value and a fixed air-to-water ratio. The EazyPlug is very easy to use. Just make sure that the plug always can drain the excess water and you cannot overwater it. Because the growing conditions are always optimal, the EazyPlug creates a very fast and powerful rooting and germination.",
+      "readMore": "Features kjbasdfkjbasdlfjblsadjfbsaf",
+      "dimensions": "3.5 x 3.5 x 3.0 cm",
+      "stock": 20,
+      "priceList": {
+        "standAlone": 0,
+        "6 Plug Tray": 80,
+        "12 Plug Tray": 120,
+        "24 Plug Tray": 160,
+        "66 Plug Tray": 270,
+        "77 Plug Tray": 290
+      }
+    }
+  },
+
+  "growingMediumsAndLiveSoil": {
+    "dirtyHandsIncLivingSoil": {
+      "name": "Dirty Hands Inc Orgasoilux Omega Mix ",
+      "image": "../TempCatalogue/Images/growingMediumsAndLiveSoil/Dirty-Hands-Inc.-Orgasoilux-Omega-Mix.jpg",
+      "description": "Dirty Hands Inc Orgasoilux Omega Mix organic living earth soil blend has been in production since 2011, and has been laboratory tested locally and internationally.",
+      "readMore": "Blah blah blah",
+      "dimensions": "39 x 30 x 16.5 cm",
+      "stock": 10,
+      "priceList": {
+        "standAlone": 200
+      }
+    }
+  }
+}

@@ -1,0 +1,31 @@
+.visit {
+  background-color: #131313f6;
+  color: rgb(236, 236, 236);
+  padding: 3rem 0;
+}
+
+.visit hr {
+  width: 70%;
+  background-color: rgba(255, 255, 255, 0.137);
+}
+
+.visit h2 {
+  text-align: center;
+}
+
+.visit h6 {
+  margin: 1.2rem 0 0.9rem 0;
+}
+
+.plant {
+  font-size: 2rem;
+}
+
+.comm-icon {
+  font-size: 2.5rem;
+}
+
+.visit a {
+  color: inherit;
+  margin: 3rem;
+}

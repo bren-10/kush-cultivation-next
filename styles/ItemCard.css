@@ -1,0 +1,61 @@
+.item-card .card {
+  /* width: 18rem; */
+  background: #161614e7;
+  color: #ECECEC;
+  margin: 1rem 19rem;
+  padding: 0 4rem 0 0 ;
+}
+
+.list-group-item {
+  background: #161614e7;
+}
+
+.to-cart {
+  font-size: 1.2rem;
+  margin-right: 0.3rem;
+}
+
+.item-card .btn:hover {
+  background-color: rgb(19, 19, 19);
+  color: white;
+}
+
+.item-card .dim {
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.item-card .price {
+  font-weight: 700;
+  color: rgb(0, 156, 0);
+}
+
+.item-card .card-img {
+  max-width: 16rem;
+  max-height: 16rem;
+  width: auto;
+  height: auto;
+  /* margin: 0 auto 0 auto; */
+}
+
+.item-card hr {
+  width: 100%;
+  margin: 0.4rem 0;
+}
+
+.item-card .stock {
+  margin: 0 0.8rem;
+  font-size: 0.9rem;
+  color: rgb(175, 175, 175);
+  float: right;
+}
+
+.item-card .select-option {
+  margin-left: 1rem;
+  border-radius: 5px;
+  background-color: rgba(207, 207, 207, 0.123);
+  color: rgb(196, 196, 196);
+  padding: 0.1rem;
+}
+
+

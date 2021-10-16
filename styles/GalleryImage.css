@@ -1,0 +1,18 @@
+.gallery-image {
+  max-width: 100%;
+  max-height: 20rem;
+  object-fit: cover;
+  overflow: hidden;
+  padding: 1rem;
+}
+
+.test-hover:hover {
+  transform: scale(1.2);
+  transition-duration: 0.2s;
+}
+
+.triangles {
+  text-align: center;
+  color: white;
+  margin-top: 7rem;
+}

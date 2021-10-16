@@ -1,0 +1,82 @@
+.carousel {
+  background: #161614d0;
+  box-shadow: 0px 4px 10px rgba(77, 77, 77, 0.308);
+}
+
+.hydro-logo {
+  padding: 3rem 0;
+  margin: 50px 0;
+}
+
+.collage {
+  border: 8px solid #111111;
+}
+
+.youtube-logo {
+  width: 3rem;
+}
+
+.carousel-text {
+  color: rgb(236, 236, 236);
+  margin: auto 4rem;
+  text-align: center;
+}
+
+.carousel-control-next,
+.carousel-control-prev {
+  width: 7%;
+}
+
+.item-left {
+  margin-left: 10rem;
+}
+
+.item-right {
+  margin-right: 10rem;
+}
+
+.vid {
+  height: 450px;
+  padding: 0;
+}
+
+.fix-height {
+  height: 350px;
+}
+
+.arrow {
+  font-size: 2.3rem;
+}
+
+#playerTut {
+  border: 8px solid #111111;
+}
+
+.carousel-text button {
+  font-weight: 600;
+}
+
+.carousel-text a {
+  color: unset;
+  text-decoration: none;
+}
+
+.carousel-text button:hover {
+  background-color: rgb(19, 19, 19);
+  color: white;
+}
+
+.carousel hr {
+  background-color: rgba(255, 255, 255, 0.363);
+}
+
+@media(max-width:1600px){
+  .hydro-logo {
+    padding: 5rem 0;
+    margin: 0;
+  }
+
+  .vid {
+    height: 350px;
+  }
+}

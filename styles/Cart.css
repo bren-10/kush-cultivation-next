@@ -1,0 +1,89 @@
+.cart-component {
+  color: #ECECEC;
+}
+
+.cart-component h1 {
+  text-align: center;
+  margin: 2rem;
+}
+
+.cart-component table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 70%;
+  margin: 0 auto;
+  background-color: #1b1b1b;
+  font-size: 1.2rem;
+}
+
+.cart-component .qty-input {
+  color: rgb(189, 189, 189);
+  background-color: rgba(255, 255, 255, 0.11);
+  width: 3rem;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.cart-component td, .cart-component th {
+  border: 1px solid #7c7c7c;
+  text-align: left;
+  padding: 8px;
+  text-align: center;
+}
+
+.cart-component th {
+  background-color: rgb(190, 190, 190);
+  color: rgb(22, 22, 22);
+}
+
+.cart-component tr:nth-child(even) {
+  background-color: #303030;
+}
+
+.cart-component table .qty {
+  width: 5%;
+}
+.cart-component table .item {
+  width: 65%;
+}
+.cart-component table .ea {
+  width: 15%;
+}
+.cart-component table .tot {
+  width: 15%;
+}
+
+.cart-component table td:nth-child(1),
+.cart-component table td:nth-child(3),
+.cart-component table td:nth-child(4){
+  text-align: center;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.cart-component .delete-icon:hover {
+  color: rgb(185, 0, 0);
+  transform: scale(1.2);
+  cursor: pointer;
+  transition-duration: 0.2s;
+}
+
+.cart-component .price {
+  color: rgb(1, 165, 1);
+}
+
+.cart-component .buttons {
+  margin: 2rem auto;
+  width: 70%;
+  text-align: center;
+}

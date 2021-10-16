@@ -1,0 +1,14 @@
+.gallery {
+  padding: 2rem 1rem;
+}
+
+.gallery h1 {
+  color: #ECECEC;
+  text-align: center;
+}
+
+.gallery hr {
+  background-color: rgba(221, 221, 221, 0.753);
+  width: 20%;
+  margin-bottom: 2rem;
+}

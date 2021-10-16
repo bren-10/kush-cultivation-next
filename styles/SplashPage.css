@@ -1,0 +1,87 @@
+.splash-container {
+  background-image: url("/ryan-lange.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  height: 100vh;
+  /* min-height: 100%; */
+  text-align: center;
+}
+
+.kush-splash {
+  margin-top: 5rem;
+  width: 35%;
+  animation: appearances 1.3s;
+}
+
+.lezgo {
+  display: block;
+  margin: 0 auto;
+  font-weight: 600;
+  animation: appearances 1.3s;
+}
+
+.double-arrow {
+  opacity: 0;
+  margin-top: 1rem;
+  color: rgb(240, 240, 240);
+  font-size: 5rem;
+  animation-name: arrowHover;
+  animation-duration: 1.6s;
+  animation-iteration-count: infinite;
+  animation-delay: 1.5s;
+}
+
+@keyframes appearances {
+  0% {
+    opacity: 0;
+    transform: translateY(-100vh);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes arrowHover {
+  0%{
+      transform: translateX(0);
+  }
+
+  50%{
+      transform: translateX(1.5rem);
+      opacity: 1;
+  }
+
+  100%{
+      transform: translateX(0);
+  }
+
+}
+
+@media (max-width: 450px){
+  .kush-splash {
+    margin-top: 5rem;
+    width: 80%;
+  }
+}
+
+/* .video-container {
+  position: absolute;
+  width: 80%;
+  height: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+  background-size: cover;
+}
+.video-container video {
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-49%, -50%);
+} */

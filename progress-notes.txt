@@ -1,3 +1,12 @@
+17/10
+
+- Improved routing
+- Component refactoring
+
+16/10
+
+- Migrate website from ReactJS-only to NextJS for server-side security
+
 21/08
 
 - Added fully-functioning contact form

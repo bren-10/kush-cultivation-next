@@ -1,10 +1,5 @@
 .index {
   animation: mainFadeIn 0.7s;
-  background: url('/remedy-pics.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  /* height: 100vh; */
 }
 
 @keyframes mainFadeIn {

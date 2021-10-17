@@ -14,7 +14,7 @@ function Footer() {
         </a>
       </h6>
       {/* <hr></hr> */}
-      <p>&copy; {dynamicYear} Brendan Stander & Kush Cultivation, All Rights Reserved.</p>
+      <p>&copy; {dynamicYear} Kush Cultivation & Brendan Stander, All Rights Reserved.</p>
     </div>
   )
 }

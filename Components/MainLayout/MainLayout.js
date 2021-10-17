@@ -25,12 +25,6 @@ function MainLayout() {
     setCartItemCount(cartItemCount);
   }
 
-  function Category() {
-    let { category } = useParams();
-
-    return <Shop category={category} cartCount={getCartCount} />;
-  }
-
   useEffect(() => {
     let cartItems = JSON.parse(localStorage.getItem("cartItems"));
     if (cartItems) {
@@ -43,45 +37,11 @@ function MainLayout() {
   return (
     <Router>
       <div className="main-layout">
-        <KushNavbar cartCount={cartItemCount}></KushNavbar>
-        <Switch>
-          <Route exact path="/">
-            <Carousel></Carousel>
-            <Visit></Visit>
-            <ContactUs></ContactUs>
-          </Route>
+        
+        <Carousel></Carousel>
+        <Visit></Visit>
+        <ContactUs></ContactUs>
 
-          <Route path="/gallery">
-            <Gallery></Gallery>
-          </Route>
-
-          <Route path="/shop/:category">
-            <Category />
-          </Route>
-
-          <Route path="/cart">
-            {/* {authCtx.isLoggedIn ? (
-              <Cart cartCount={getCartCount} />
-            ) : (
-              <Redirect to="/user-authentication" />
-            )} */}
-          </Route>
-
-          {/* {!authCtx.isLoggedIn && (
-            <Route path="/user-authentication">
-              <LoginRegister />
-            </Route>
-          )} */}
-
-          <Route path="/reset-password">
-            <ResetPassword />
-          </Route>
-
-          <Route path="*">
-            <Redirect to="/" />
-          </Route>
-        </Switch>
-        <Footer></Footer>
       </div>
     </Router>
   );

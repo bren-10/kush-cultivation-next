@@ -11,7 +11,7 @@
 }
 
 .nav-link {
-  font-size: 1.15rem;
+  font-size: 1.15rem !important;
   color: #e7e7e7 !important;
 }
 
@@ -33,6 +33,11 @@
 .navbar-brand img:hover {
   transform: scale(1.2);
   transition-duration: 0.2s;
+}
+
+.dropdown-item:hover {
+  background-color: rgb(201, 198, 198);
+  transition-duration: 0.1s;
 }
 
 @media (max-width: 450px){

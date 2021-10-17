@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react'
 import { FaShoppingCart, FaFacebook } from 'react-icons/fa';
 import { AiFillInstagram, AiFillYoutube } from 'react-icons/ai';
 import { RiWhatsappFill } from 'react-icons/ri';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import Link from 'next/link'
 // import AuthContext from '../../Storage/auth-context';
 // import { useAlert } from 'react-alert';
 
@@ -39,7 +40,7 @@ function KushNavbar(props) {
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-        <Link to="/" className="navbar-brand" ><img alt='logo missing :(' src="/kush-logo.png"></img></Link>
+        <Link href="/" className="navbar-brand" ><img alt='logo missing :(' src="/kush-logo.png"></img></Link>
         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="https://google.comnavbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>
@@ -47,24 +48,24 @@ function KushNavbar(props) {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mr-auto">
             <li className="nav-item dropdown">
-              <a className="nav-link dropdown-toggle" href="https://google.com" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span className="nav-link dropdown-toggle" href="https://google.com" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Categories
-              </a>
+              </span>
               <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                 {Object.keys(data.shop).map((key) => (
 
-                  <Link to={`/shop/${key}`} key={key} className="dropdown-item">{key}</Link>
+                  <Link href={`/shop/${key}`} key={key}><a className="dropdown-item">{key}</a></Link>
                 ))}
               </div>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to='/gallery'>Gallery</Link>
+              <Link href='/gallery'><a className="nav-link">Gallery</a></Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="https://google.com">Contact Us</a>
+              <Link href="https://google.com"><a className="nav-link">Contact Us</a></Link>
             </li>
             <li className="nav-item cart">
-              <Link className="nav-link" to='/cart'><FaShoppingCart/> <span>{props.cartCount}</span></Link>
+              <Link href='/cart'><a className="nav-link"><FaShoppingCart/> {props.cartCount}</a></Link>
             </li>
             {/* {!isLoggedIn && 
               <li className="nav-item">

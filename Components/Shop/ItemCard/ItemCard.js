@@ -52,7 +52,7 @@ function ItemCard(props) {
         <div className="row">
           <div className="col-md-4">
             <img
-              src="/Images/PlantPropagation/Humid-Dome.jpg"
+              src="/kush-logo.png"
               className="card-img"
               alt={props.completeItem["name"]}
             />

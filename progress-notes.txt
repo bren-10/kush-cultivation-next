@@ -1,7 +1,15 @@
+13/11
+
+- Improved image file structure
+- Moved data-fetching to built-in API endpoint
+- Added function to dynamically load gallery images from public folder
+- Minor styling improvements
+- Added new video to carousel
+
 23/10
 
-- Add (new) dynamic routing
-- Improve card styling
+- Added (new) dynamic routing
+- Improved card styling
 
 17/10
 

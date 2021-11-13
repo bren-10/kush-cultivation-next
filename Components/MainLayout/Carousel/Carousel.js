@@ -1,5 +1,6 @@
 import React from 'react'
 import { FaLongArrowAltRight } from 'react-icons/fa'
+import Iframe from 'react-iframe'
 import { Link } from 'react-router-dom'
 
 function Carousel() {
@@ -35,16 +36,26 @@ function Carousel() {
                 <h5>Watch this video tutorial on how to set up your grow tent as a beginner.</h5>
                 <FaLongArrowAltRight className='arrow'/>
               </div>
-              <div id="playerTut" className='col-lg item-right vid'></div>
-              {/* <div className="col-lg item-right vid">
-                <iframe id="blah" width="560" height="300" src="https://www.youtube.com/embed/8OfwfLj2yG8" title="YouTube video player" frameborder="1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-              </div> */}
+              {/* <div id="playerTut" className='col-lg item-right vid'></div> */}
+              <div className="col-lg item-right vid">
+                {/* <iframe id="blah" width="560" height="300" src="https://www.youtube.com/embed/8OfwfLj2yG8" title="YouTube video player" frameborder="1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> */}
+                <Iframe 
+                  url="https://www.youtube.com/embed/NBkJsz2FwSI"
+                  width="560px"
+                  height="350px"
+                  id="blah"
+                  // className="col-lg item-right vid"
+                  display="initial"
+                  position="relative"
+                />
+              </div>
+              
             </div>
           </div>
           <div className="carousel-item">
             <div className="row">
               <div className="col-lg item-left">
-                <img className="d-block w-100 fix-height collage" src='/collage.png' alt="Third slide"/>
+                <img className="d-block w-100 fix-height collage" src='/collage.jpg' alt="Third slide"/>
               </div>
               <div className='col-lg item-right carousel-text'>
                 <h2>Gallery</h2>

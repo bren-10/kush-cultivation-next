@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import ReadMoreModal from "../Modals/ReadMoreModal/ReadMoreModal";
 
 function Shop(props) {
-
   const [data, setData] = useState({
     isLoading: true,
     shop: {},
@@ -31,7 +30,7 @@ function Shop(props) {
   }
 
   useEffect(() => {
-    fetch("https://api.npoint.io/006d5eec44ccb6652b05") // remember to move this to .env file
+    fetch("/api/shop-keeper")
       .then((response) => response.json())
       .then((result) => {
         setData({
@@ -52,11 +51,11 @@ function Shop(props) {
         item={openReadModal.item}
         onCloseReadMore={onCloseReadMore}
       />
-      <h1>{props.category}</h1>
+      <h1>Shop {props.category}</h1>
       <hr></hr>
       {data.isLoading ? (
         <div className='text-center'>
-          <img className='loadingator' src='/assets/loading.gif' alt='Loading'></img>
+          <img className='loadingator' src='/loading.gif' alt='Loading'></img>
         </div>
       ) : (
         <div>
@@ -66,7 +65,7 @@ function Shop(props) {
                 <ItemCard
                   completeItem={data['shop'][props.category][item]}
                   onReadMore={onReadMore}
-                  changeCartCount={props.cartCount}
+                  // changeCartCount={props.cartCount}
                 />
               </div>
             ))

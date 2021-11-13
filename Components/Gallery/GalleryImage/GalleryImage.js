@@ -25,10 +25,10 @@ function GalleryImage(props) {
       >
         <ModalImage
           className="test-hover"
-          small={props.imageSmall}
-          large={props.imageLarge}
-          alt={"..." + title.slice(title.length - 15)}
-        ></ModalImage>
+          small={`/gallery/${props.imageSmall}`}
+          large={`/gallery/${props.imageLarge}`}
+          alt={title}
+        />
       </span>
     </div>
   );

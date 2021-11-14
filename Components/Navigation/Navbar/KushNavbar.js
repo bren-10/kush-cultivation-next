@@ -62,7 +62,7 @@ function KushNavbar(props) {
               <Link href='/gallery'><a className="nav-link">Gallery</a></Link>
             </li>
             <li className="nav-item">
-              <Link href="https://google.com"><a className="nav-link">Contact Us</a></Link>
+              <Link href="/contact"><a className="nav-link">Contact Us</a></Link>
             </li>
             <li className="nav-item cart">
               <Link href='/cart'><a className="nav-link"><FaShoppingCart/> {props.cartCount}</a></Link>

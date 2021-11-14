@@ -1,7 +1,7 @@
 import React from 'react'
 import { FaLongArrowAltRight } from 'react-icons/fa'
 import Iframe from 'react-iframe'
-import { Link } from 'react-router-dom'
+import Link from 'next/link'
 
 function Carousel() {
 
@@ -24,7 +24,7 @@ function Carousel() {
                   Here at KC, we sell only the top-rated grow room equipment brands in South Africa, at an affordable price.
                   We welcome you to look through our site and see all we have to offer.
                 </p>
-                <Link to='/shop'><button className='btn btn-md btn-light'>Shop Now</button></Link>
+                <Link href='/shop'><button className='btn btn-md btn-light'>Shop Now</button></Link>
               </div>
             </div>
           </div>
@@ -61,7 +61,7 @@ function Carousel() {
                 <h2>Gallery</h2>
                 <hr></hr>
                 <h5>View some photos of our gear</h5>
-                <Link to='/gallery'><button className='btn btn-md btn-light mt-2'>View Gallery</button></Link>
+                <Link href='/gallery'><button className='btn btn-md btn-light mt-2'>View Gallery</button></Link>
               </div>
             </div>
           </div>

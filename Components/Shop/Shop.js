@@ -60,15 +60,29 @@ function Shop(props) {
       ) : (
         <div>
           {data['shop'] ? 
-            Object.keys(data['shop'][props.category]).map((item, i) => (
-              <div key={i}>
-                <ItemCard
-                  completeItem={data['shop'][props.category][item]}
-                  onReadMore={onReadMore}
-                  // changeCartCount={props.cartCount}
-                />
-              </div>
-            ))
+            props.category !== 'All' ? 
+              Object.keys(data['shop'][props.category]).map((item, i) => (
+                <div key={i}>
+                  <ItemCard
+                    completeItem={data['shop'][props.category][item]}
+                    onReadMore={onReadMore}
+                    // changeCartCount={props.cartCount}
+                  />
+                </div>
+              ))
+              :
+              Object.keys(data['shop']).map((category, i) => (
+                <div key={i}>
+                  <h3>{category}</h3>
+                  {Object.keys(data['shop'][category]).map((item, i) => (
+                    <ItemCard
+                      completeItem={data['shop'][category][item]}
+                      onReadMore={onReadMore}
+                      // changeCartCount={props.cartCount}
+                    />
+                  ))}
+                </div>
+              ))
             :
             "No data found."
           }

@@ -31,8 +31,9 @@
 }
 
 .navbar-brand img:hover {
-  transform: scale(1.2);
-  transition-duration: 0.2s;
+  cursor: pointer !important;
+  transform: scale(1.2) !important;
+  transition-duration: 0.2s !important;
 }
 
 .dropdown-item:hover {

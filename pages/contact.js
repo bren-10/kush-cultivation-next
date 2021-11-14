@@ -1,10 +1,9 @@
 import emailjs from 'emailjs-com';
 import { useState } from 'react';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
-// import { useAlert } from 'react-alert';
 
-function ContactUs() {
-  // const alert = useAlert()
+export default function ContactUs() {
+
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [query, setQuery] = useState('')
@@ -46,5 +45,3 @@ function ContactUs() {
     </div>
   )
 }
-
-export default ContactUs

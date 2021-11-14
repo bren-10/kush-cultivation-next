@@ -1,3 +1,11 @@
+14/11
+
+- Added new alert system
+- Added functionality to display all items in shop
+- Fixed broken links
+- Added separate contact page
+- Minor styling improvements
+
 13/11
 
 - Improved image file structure

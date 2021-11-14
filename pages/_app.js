@@ -14,6 +14,7 @@ import "../styles/ResetPassword.css";
 import "../styles/Shop.css";
 import "../styles/SplashPage.css";
 import "../styles/Visit.css";
+import 'react-notifications/lib/notifications.css';
 import KushNavbar from "../Components/Navigation/Navbar/KushNavbar";
 import Footer from "../Components/Footer/Footer";
 import Head from "next/head";

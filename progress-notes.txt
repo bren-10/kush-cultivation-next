@@ -1,3 +1,12 @@
+20/11
+
+- Improved contact form
+- Cleaned up components
+- Fixed cart counter
+- Added yet another new alert system
+- Re-added cart page
+- Minor styling improvements
+
 14/11
 
 - Added new alert system

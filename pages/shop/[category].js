@@ -6,7 +6,7 @@ export default function category(props) {
   const { category } = router.query
   return (
     <div>
-      <Shop category={category}/>
+      <Shop category={category} changeCartCount={props.changeCartCount}/>
     </div>
   )
 }

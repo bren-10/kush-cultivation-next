@@ -29,24 +29,23 @@ function Cart(props) {
   function handleDeleteItem(i) {
     cartItems.data.splice(i, 1);
     localStorage.setItem("cartItems", JSON.stringify(cartItems.data));
-    let cartItemCount = JSON.parse(localStorage.getItem("cartItems")).length;
-    props.cartCount(cartItemCount)
     setCartItems({
       ...cartItems,
       data: cartItems.data.length > 0 ? cartItems.data : '',
     });
+    props.changeCartCount()
   }
 
   function onClearCart() {
     let response = window.confirm("Are you sure you want to clear your cart?");
     if (response) {
       localStorage.removeItem("cartItems");
-      props.cartCount(0)
       setCartItems({
         ...cartItems,
         data: "",
       });
     }
+    props.changeCartCount()
   }
 
   useEffect(() => {
@@ -79,7 +78,7 @@ function Cart(props) {
       {cartItems.isLoading ? (
         <img
           className="loadingator"
-          src="/assets/loading.gif"
+          src="/loading.gif"
           alt="Loading"
         ></img>
       ) : cartItems.data && cartItems.data.length > 0 ? (

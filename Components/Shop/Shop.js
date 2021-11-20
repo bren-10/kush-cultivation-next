@@ -66,7 +66,7 @@ function Shop(props) {
                   <ItemCard
                     completeItem={data['shop'][props.category][item]}
                     onReadMore={onReadMore}
-                    // changeCartCount={props.cartCount}
+                    changeCartCount={props.changeCartCount}
                   />
                 </div>
               ))
@@ -75,11 +75,13 @@ function Shop(props) {
                 <div key={i}>
                   <h3>{category}</h3>
                   {Object.keys(data['shop'][category]).map((item, i) => (
-                    <ItemCard
-                      completeItem={data['shop'][category][item]}
-                      onReadMore={onReadMore}
-                      // changeCartCount={props.cartCount}
-                    />
+                    <div key={item}>
+                      <ItemCard
+                        completeItem={data['shop'][category][item]}
+                        onReadMore={onReadMore}
+                        changeCartCount={props.changeCartCount}
+                      />
+                    </div>
                   ))}
                 </div>
               ))

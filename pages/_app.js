@@ -14,15 +14,26 @@ import "../styles/ResetPassword.css";
 import "../styles/Shop.css";
 import "../styles/SplashPage.css";
 import "../styles/Visit.css";
-import 'react-notifications/lib/notifications.css';
+import 'react-toastify/dist/ReactToastify.css';
 import KushNavbar from "../Components/Navigation/Navbar/KushNavbar";
 import Footer from "../Components/Footer/Footer";
 import Head from "next/head";
+import { ToastContainer } from 'react-toastify';
 import { Fragment, useEffect, useState } from "react";
 
 function MyApp({ Component, pageProps }) {
   const [faviconScheme, setFaviconScheme] = useState("/k-light.png");
   const [hasVisitedState, setHasVisitedState] = useState(false);
+  const [cartCount, setCartCount] = useState('')
+
+  function changeCartCount(){
+    const cartItems = JSON.parse(localStorage.getItem('cartItems'))
+    if (cartItems){
+      setCartCount(cartItems.length)
+    } else {
+      setCartCount('')
+    }
+  }
 
   // Change favicon colour based on browser/OS theme.
   useEffect(() => {
@@ -42,6 +53,9 @@ function MyApp({ Component, pageProps }) {
     }
   }, []);
 
+  useEffect(() => {
+    changeCartCount()
+  }, [])
   return (
     <Fragment>
       <Head>
@@ -53,37 +67,38 @@ function MyApp({ Component, pageProps }) {
           name="description"
           content="Web site created using create-react-app"
         />
-        <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+        {/* <link rel="manifest" href="%PUBLIC_URL%/manifest.json" /> */}
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link rel="stylesheet" href="./index.html" />
         <link
           rel="stylesheet"
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-          crossorigin="anonymous"
+          crossOrigin="anonymous"
         />
         <title>Kush Cultivation</title>
       </Head>
-      <body>
+      {/* <body> */}
         <script
           src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
           integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-          crossorigin="anonymous"
+          crossOrigin="anonymous"
         ></script>
         <script
           src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
           integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-          crossorigin="anonymous"
+          crossOrigin="anonymous"
         ></script>
         <script
           src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
           integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-          crossorigin="anonymous"
+          crossOrigin="anonymous"
         ></script>
-        {hasVisitedState && <KushNavbar />}
-        <Component {...pageProps} hasVisited={hasVisitedState} setVisited={() => setHasVisitedState(true)}/>
+        {hasVisitedState && <KushNavbar cartCount={cartCount}/>}
+        <ToastContainer theme={"dark"}/>
+        <Component {...pageProps} hasVisited={hasVisitedState} setVisited={() => setHasVisitedState(true)} changeCartCount={changeCartCount}/>
         {hasVisitedState && <Footer />}
-      </body>
+      {/* </body> */}
     </Fragment>
   );
 }

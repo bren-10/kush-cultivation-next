@@ -4,24 +4,17 @@ import { AiFillInstagram, AiFillYoutube } from 'react-icons/ai';
 import { RiWhatsappFill } from 'react-icons/ri';
 import { useHistory } from 'react-router-dom';
 import Link from 'next/link'
-// import AuthContext from '../../Storage/auth-context';
-// import { useAlert } from 'react-alert';
 
 function KushNavbar(props) {
-  // const alert = useAlert()
   const history = useHistory()
   const [data, setData] = useState({
     isLoading: true,
     shop: ''
   });
 
-  // const authCtx = useContext(AuthContext)
-  // const isLoggedIn = authCtx.isLoggedIn
-
   function handleLogout(){
     authCtx.logout()
     history.replace('/')
-    alert.success('Logged out successfully')
   }
 
   useEffect(() => {
@@ -37,18 +30,19 @@ function KushNavbar(props) {
     }
   }, []);
 
+
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <Link href="/" className="navbar-brand" ><img alt='logo missing :(' src="/kush-logo.png"></img></Link>
-        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="https://google.comnavbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>
 
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mr-auto">
             <li className="nav-item dropdown">
-              <span className="nav-link dropdown-toggle" href="https://google.com" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Categories
               </span>
               <div className="dropdown-menu" aria-labelledby="navbarDropdown">

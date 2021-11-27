@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FaTrash } from "react-icons/fa";
-
+import Image from 'next/image'
 
 function Cart(props) {
   const [cartItems, setCartItems] = useState({

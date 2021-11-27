@@ -1,6 +1,7 @@
 import ItemCard from "./ItemCard/ItemCard";
 import { useEffect, useState } from "react";
 import ReadMoreModal from "../Modals/ReadMoreModal/ReadMoreModal";
+import Image from 'next/image'
 
 function Shop(props) {
   const [data, setData] = useState({

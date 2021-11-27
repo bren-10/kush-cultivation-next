@@ -2,6 +2,7 @@ import { FaShoppingCart } from "react-icons/fa";
 import { ImPlus } from "react-icons/im";
 import { useEffect, useState } from "react";
 import { toast } from 'react-toastify'
+import Image from 'next/image'
 
 function ItemCard(props) {
   // const alert = useAlert();

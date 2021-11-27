@@ -2,6 +2,7 @@ import React from 'react'
 import { FaLongArrowAltRight } from 'react-icons/fa'
 import Iframe from 'react-iframe'
 import Link from 'next/link'
+import Image from 'next/image'
 
 function Carousel() {
 
@@ -12,7 +13,7 @@ function Carousel() {
           <div className="carousel-item active">
             <div className="row">
               <div className="col-lg item-left">
-                <img className="d-block w-100 hydro-logo fix-height" src='/hydro-logo.png' alt="First slide"/>
+                <img className="d-block w-100 hydro-logo" src='/hydro-logo.png' alt="First slide"/>
               </div>
               <div className="col-lg item-right carousel-text">
                 <h5>Kush Cultivation Welcomes You!</h5>
@@ -41,8 +42,8 @@ function Carousel() {
                 {/* <iframe id="blah" width="560" height="300" src="https://www.youtube.com/embed/8OfwfLj2yG8" title="YouTube video player" frameborder="1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> */}
                 <Iframe 
                   url="https://www.youtube.com/embed/NBkJsz2FwSI"
-                  width="560px"
-                  height="350px"
+                  width="750px"
+                  height="450px"
                   id="blah"
                   // className="col-lg item-right vid"
                   display="initial"

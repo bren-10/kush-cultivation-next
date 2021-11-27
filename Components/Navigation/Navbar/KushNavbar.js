@@ -4,6 +4,7 @@ import { AiFillInstagram, AiFillYoutube } from 'react-icons/ai';
 import { RiWhatsappFill } from 'react-icons/ri';
 import { useHistory } from 'react-router-dom';
 import Link from 'next/link'
+import Image from 'next/image'
 
 function KushNavbar(props) {
   const history = useHistory()

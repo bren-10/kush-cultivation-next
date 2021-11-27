@@ -1,5 +1,6 @@
 import React from 'react'
 import { HiChevronDoubleRight } from 'react-icons/hi';
+import Image from 'next/image'
 
 function SplashPage(props) {
 

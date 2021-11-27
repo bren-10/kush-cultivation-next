@@ -9,7 +9,6 @@ export default function ContactUs() {
   const [query, setQuery] = useState('')
   const [loading, setLoading] = useState(false)
 
-  // TODO move this to /api
   function handlesSubmit(e) {
     setLoading(true)
     e.preventDefault()
@@ -18,7 +17,7 @@ export default function ContactUs() {
       .then((result) => {
         toast.success('Successfully sent your query.')
       }, (error) => {
-        toast.error('Successfully sent your query.')
+        toast.error('There was a problem sending your query.')
       });
     
     setName('')

@@ -23,7 +23,7 @@ function ItemCard(props) {
   }
 
   function addToCart() {
-    let cartData = JSON.parse(localStorage.getItem("cartItems"));
+    let cartData = JSON.parse(localStorage.getItem("kush-cultivation__cartItems"));
     if (!cartData) {
       cartData = [];
     }
@@ -36,7 +36,7 @@ function ItemCard(props) {
     };
 
     cartData.push(itemToAdd);
-    localStorage.setItem("cartItems", JSON.stringify(cartData));
+    localStorage.setItem("kush-cultivation__cartItems", JSON.stringify(cartData));
     props.changeCartCount()
     toast.success("Item added to cart!")
   }

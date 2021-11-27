@@ -19,7 +19,7 @@ function Cart(props) {
       ...cartItems.data[i],
       qty: parseInt(e.target.value) || "",
     };
-    localStorage.setItem("cartItems", JSON.stringify(cartItems.data));
+    localStorage.setItem("kush-cultivation__cartItems", JSON.stringify(cartItems.data));
     setCartItems({
       ...cartItems,
       data: cartItems.data,
@@ -28,7 +28,7 @@ function Cart(props) {
 
   function handleDeleteItem(i) {
     cartItems.data.splice(i, 1);
-    localStorage.setItem("cartItems", JSON.stringify(cartItems.data));
+    localStorage.setItem("kush-cultivation__cartItems", JSON.stringify(cartItems.data));
     setCartItems({
       ...cartItems,
       data: cartItems.data.length > 0 ? cartItems.data : '',
@@ -39,7 +39,7 @@ function Cart(props) {
   function onClearCart() {
     let response = window.confirm("Are you sure you want to clear your cart?");
     if (response) {
-      localStorage.removeItem("cartItems");
+      localStorage.removeItem("kush-cultivation__cartItems");
       setCartItems({
         ...cartItems,
         data: "",
@@ -49,7 +49,7 @@ function Cart(props) {
   }
 
   useEffect(() => {
-    let cartItems = JSON.parse(localStorage.getItem("cartItems"));
+    let cartItems = JSON.parse(localStorage.getItem("kush-cultivation__cartItems"));
     if (cartItems) {
       setCartItems({
         isLoading: false,

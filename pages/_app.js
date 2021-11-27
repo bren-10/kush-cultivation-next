@@ -27,7 +27,7 @@ function MyApp({ Component, pageProps }) {
   const [cartCount, setCartCount] = useState('')
 
   function changeCartCount(){
-    const cartItems = JSON.parse(localStorage.getItem('cartItems'))
+    const cartItems = JSON.parse(localStorage.getItem('kush-cultivation__cartItems'))
     if (cartItems){
       setCartCount(cartItems.length)
     } else {
@@ -45,11 +45,11 @@ function MyApp({ Component, pageProps }) {
 
   // Check if user has visited the site before and set visit status accordingly.
   useEffect(() => {
-    const hasVisited = localStorage.getItem("hasVisited") ? true : false;
+    const hasVisited = localStorage.getItem("kush-cultivation__hasVisited") ? true : false;
     if (hasVisited) {
       setHasVisitedState(true);
     } else {
-      localStorage.setItem("hasVisited", "true");
+      localStorage.setItem("kush-cultivation__hasVisited", "true");
     }
   }, []);
 

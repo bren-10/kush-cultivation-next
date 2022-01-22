@@ -1,197 +1,150 @@
 import { useRef, useState, useEffect } from "react";
-// import { useAlert } from "react-alert";
-import { Link, useHistory } from "react-router-dom";
-// import AuthContext from "../../Storage/auth-context";
-import firebase from "firebase/app"
-import 'firebase/auth'
+import Link from 'next/link'
+import { toast } from "react-toastify";
 
-function LoginRegister() {
-  const history = useHistory();
-  // const alert = useAlert();
+function LoginRegister(props) {
   const emailInput = useRef();
+  const firstNameInput = useRef();
+  const lastNameInput = useRef();
   const passwordInput = useRef();
-
-  // const authCtx = useContext(AuthContext);
+  const passwordInput2 = useRef();
+  var validEmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
   const [isLogin, setIsLogin] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyDplQtuTWefOL2tXcMDmMNYtYlDnUPgldU",
-    authDomain: "kush-cultivation-auth.firebaseapp.com",
-    projectId: "kush-cultivation-auth",
-    storageBucket: "kush-cultivation-auth.appspot.com",
-    messagingSenderId: "607076133623",
-    appId: "1:607076133623:web:e0be04990f2ea1ad7a81f2"
-  };
-  if (!firebase.apps.length) {
-      const app = firebase.initializeApp(firebaseConfig)
-  } else {
-      firebase.app(); // if already initialized, use that one
+  const options = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: ''
   }
-  
 
-  function submitAuthDetails(e) {
-    e.preventDefault()
-    setIsLoading(true)
-    const email = emailInput.current.value;
-    const password = passwordInput.current.value;
-
-    // let url;
-    if (isLogin) {
-      firebase.auth().signInWithEmailAndPassword(email, password)
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user
-        setIsLoading(false)
-        if (user) {
-          user.getIdToken().then(function(token) {
-              let idToken = token
-              const expiryPeriod = new Date(
-                new Date().getTime() + 3600 * 1000
-              );
-              alert.success("Logged in successfully.");
-              authCtx.login(idToken, expiryPeriod);
-          });
-        }
-        history.replace("/");
-      })
-      .catch((error) => {
-        setIsLoading(false)
-        var errorCode = error.code;
-        let errorMsg = "Authentication failed, please try again.";
-        if (error && error.message) {
-          // errorMsg = data.error.message.split(' : ');
-          // errorMsg = errorMsg[1]
-          errorMsg = error.message.replace('_', ' ');
-        }
-        alert.error(errorMsg);
-      });
-
-    } else {
-
-      firebase.auth().createUserWithEmailAndPassword(email, password)
-      .then((userCredential) => {
-        let actionCodeSettings = {
-          url: 'http://localhost:3000/user-authentication',
-          handleCodeInApp: true
-        }
-        firebase.auth().sendSignInLinkToEmail(email, actionCodeSettings)
-          .then(() => {
-            // Signed up
-            const user = userCredential.user
-            setIsLoading(false)
-            if (user) {
-              user.getIdToken().then(function(token) {
-                  let idToken = token
-                  let hourFromNow = new Date().setSeconds(3550)
-                  let expiresIn = new Date(hourFromNow)
-                  const expiryPeriod = new Date(
-                    new Date().getTime() + expiresIn * 1000
-                  );
-                  alert.success("Registered successfully. Please keep an eye on your mailbox for the verification link.");
-                  authCtx.login(idToken, expiryPeriod);
-              });
-            }
-          })
-          .catch((error) => {
-            setIsLoading(false)
-            var errorCode = error.code;
-            let errorMsg = "Authentication failed, please try again.";
-            if (error && error.message) {
-              // errorMsg = data.error.message.split(' : ');
-              // errorMsg = errorMsg[1]
-              errorMsg = error.message.replace('_', ' ');
-            }
-            alert.error(errorMsg);
-          });
-      })
-      .catch(error => {
-        console.log(error)
-      })
-        
+  async function handleSubmit(){
+    if (!(emailInput.current.value && passwordInput.current.value)){
+      toast.warn("Not all required fields have been provided.")
+      return
     }
 
-    // fetch(url, {
-    //   method: "POST",
-    //   body: JSON.stringify({
-    //     email: email,
-    //     password: password,
-    //     returnSecureToken: true,
-    //   }),
-    //   headers: { "Content-Type": "application/json" },
-    // })
-    //   .then((res) => {
-    //     setIsLoading(false)
-    //     if (res.ok) {
-    //       alert.success(`${isLogin ? "Logged in" : "Registered"} successfully`);
-    //       return res.json().then(data => {
-    //         const expiryPeriod = new Date(
-    //           new Date().getTime() + +data.expiresIn * 1000
-    //         );
-    //         authCtx.login(data.idToken, expiryPeriod);
-    //         history.replace("/");
-    //       })
-          
-    //     } else {
-    //       return res.json().then(data => {
-    //         let errorMsg = "Authentication failed, please try again.";
-    //         if (data.error && data.error.message) {
-    //           // errorMsg = data.error.message.split(' : ');
-    //           // errorMsg = errorMsg[1]
-    //           errorMsg = data.error.message.replace('_', ' ');
-    //         }
-    //         alert.error(errorMsg);
-    //         throw new Error(errorMsg)
-    //       })
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     alert.error(err.message);
-    //   });
+    if (!emailInput.current.value.match(validEmail)){
+      toast.warn("Not a valid email address.")
+      return
+    }
+    // Client is registering. Validate email, match passwords and add to DB
+    if (!isLogin){
+      if (passwordInput.current.value === passwordInput2.current.value){
 
+        const registrationInfo = {
+          "firstName": firstNameInput.current.value || '',
+          "lastName": lastNameInput.current.value || '',
+          "email": emailInput.current.value,
+          "password": passwordInput.current.value
+        }
+
+        options.method = "GET"
+        options.body = JSON.stringify(registrationInfo)
+
+        const res = await fetch('/api/register', options)
+        if (res.ok) {
+          // TODO get data from response and log user in, or just redirect to login
+          toast.success("Successfully Registered!")
+        } else {
+          // TODO proper error handling with codes in /register
+          toast.error("Something went wrong.")
+        }
+      } else {
+        toast.warn("Passwords do not match!")
+      }
+    } else {
+      const loginInfo = {
+        "email": emailInput.current.value,
+        "password": passwordInput.current.value
+      }
+
+      options.body = JSON.stringify(loginInfo)
+
+      const res = await fetch('/api/login', options)
+      
+      if (res.ok){
+        toast.success("Logged in successfully!")
+      } else {
+        toast.error("Something went wrong.")
+        // TODO proper error handling with codes in /login
+      }
+    }
+    
   }
+
+
+
+  useEffect(() => {
+    if (props.action) {
+      if (props.action === 'register') {
+        setIsLogin(false)
+      }
+    }
+  }, [props.action])
 
   return (
     <div className="login-register">
       <h1>{isLogin ? "Login" : "Register"}</h1>
-      <form>
-        <div className="form-group">
-          <input
-            className="form-control"
-            type="email"
-            placeholder="Email"
-            ref={emailInput}
-          ></input>
+      {!isLogin && (
+        <div>
+          <div className="form-group">
+            <input
+              className="form-control"
+              type="text"
+              placeholder="First Name"
+              ref={firstNameInput}
+            ></input>
+          </div>
+          <div className="form-group">
+            <input
+              className="form-control"
+              type="text"
+              placeholder="Last Name"
+              ref={lastNameInput}
+            ></input>
+          </div>
         </div>
+      )}
+      <div className="form-group">
+        <input
+          className="form-control"
+          type="email"
+          placeholder="Email"
+          ref={emailInput}
+        ></input>
+      </div>
+      <div className="form-group">
+        <input
+          className="form-control"
+          type="password"
+          placeholder="Password"
+          ref={passwordInput}
+        ></input>
+      </div>
+      {!isLogin && (
         <div className="form-group">
           <input
             className="form-control"
             type="password"
-            placeholder="Password"
-            ref={passwordInput}
+            placeholder="Confirm Password"
+            ref={passwordInput2}
           ></input>
         </div>
-        {!isLogin && (
-          <div className="form-group">
-            <input
-              className="form-control"
-              type="password"
-              placeholder="Confirm Password"
-            ></input>
-          </div>
-        )}
-        <button className="btn btn-light m-3" onClick={submitAuthDetails}>
-          {isLoading ? <img className='loadingator' src='/assets/loading.gif'></img> : 'Submit'}
-        </button>
-      </form>
+      )}
+      <button className="btn btn-light m-3" onClick={handleSubmit}>
+        {isLoading ? <img className='loadingator' src='/assets/loading.gif'></img> : 'Submit'}
+      </button>
       <div>
         or{" "}
         <span onClick={() => setIsLogin(!isLogin)}>
           {isLogin ? "Register" : "Login"}
         </span>
       </div>
-      {isLogin && <Link to="/reset-password">Forgot Password?</Link>}
+      {isLogin && <Link href="/reset-password"><a>Forgot Password?</a></Link>}
     </div>
   );
 }

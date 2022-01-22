@@ -2,20 +2,20 @@ import { useState, useEffect } from 'react'
 import { FaShoppingCart, FaFacebook } from 'react-icons/fa';
 import { AiFillInstagram, AiFillYoutube } from 'react-icons/ai';
 import { RiWhatsappFill } from 'react-icons/ri';
-import { useHistory } from 'react-router-dom';
 import Link from 'next/link'
 import Image from 'next/image'
+import { useRouter } from 'next/dist/client/router';
 
 function KushNavbar(props) {
-  const history = useHistory()
+  const router = useRouter()
   const [data, setData] = useState({
     isLoading: true,
     shop: ''
   });
 
   function handleLogout(){
-    authCtx.logout()
-    history.replace('/')
+    // authCtx.logout()
+    // router.replace('/')
   }
 
   useEffect(() => {
@@ -62,26 +62,15 @@ function KushNavbar(props) {
             <li className="nav-item cart">
               <Link href='/cart'><a className="nav-link"><FaShoppingCart/> {props.cartCount}</a></Link>
             </li>
-            {/* {!isLoggedIn && 
               <li className="nav-item">
-                <Link className="nav-link" to='/user-authentication'>Login</Link>
+                <Link href=""><a onClick={() => console.log('hello')} className="nav-link">Login</a></Link>
               </li>
-            } */}
-            {/* {!isLoggedIn && 
               <li className="nav-item">
-                <Link className="nav-link" to='/user-authentication'>Register</Link>
+                <Link href=""><a className="nav-link" onClick={() => router.replace('/auth/register')}>Register</a></Link>
               </li>
-            } */}
-            {/* {isLoggedIn && 
               <li className="nav-item">
-                <span className="nav-link" onClick={handleLogout}>Logout</span>
+                <Link href=""><a className="nav-link">Logout</a></Link>
               </li>
-            } */}
-            {/* {isLoggedIn &&
-              <li className="nav-item">
-                <Link className="nav-link" to='/user-authentication'>Profile</Link>
-              </li>
-            } */}
           </ul>
           <ul className="navbar-nav ml-auto">
             <li className="nav-item">

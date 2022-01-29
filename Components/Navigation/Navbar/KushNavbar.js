@@ -1,10 +1,11 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Fragment } from 'react'
 import { FaShoppingCart, FaFacebook } from 'react-icons/fa';
 import { AiFillInstagram, AiFillYoutube } from 'react-icons/ai';
 import { RiWhatsappFill } from 'react-icons/ri';
 import Link from 'next/link'
 import Image from 'next/image'
 import { useRouter } from 'next/dist/client/router';
+import { toast } from 'react-toastify';
 
 function KushNavbar(props) {
   const router = useRouter()
@@ -12,10 +13,15 @@ function KushNavbar(props) {
     isLoading: true,
     shop: ''
   });
+  const isUser = localStorage.getItem('kush_cultivation__thereIsUser')
 
-  function handleLogout(){
-    // authCtx.logout()
-    // router.replace('/')
+  async function handleLogout(){
+    const res = await fetch('/api/logout')
+    if (res.ok){
+      router.replace('/')
+      toast.success("Logged out successfully.")
+      localStorage.removeItem('kush_cultivation__thereIsUser')
+    }
   }
 
   useEffect(() => {
@@ -62,15 +68,21 @@ function KushNavbar(props) {
             <li className="nav-item cart">
               <Link href='/cart'><a className="nav-link"><FaShoppingCart/> {props.cartCount}</a></Link>
             </li>
-              <li className="nav-item">
-                <Link href=""><a onClick={() => console.log('hello')} className="nav-link">Login</a></Link>
-              </li>
-              <li className="nav-item">
-                <Link href=""><a className="nav-link" onClick={() => router.replace('/auth/register')}>Register</a></Link>
-              </li>
-              <li className="nav-item">
-                <Link href=""><a className="nav-link">Logout</a></Link>
-              </li>
+              
+              {isUser ? 
+                <li className="nav-item">
+                  <Link href=""><a className="nav-link" onClick={handleLogout}>Logout</a></Link>
+                </li>
+                :
+                <>
+                  <li className="nav-item">
+                    <Link href="/auth/login"><a className="nav-link">Login</a></Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link href="/auth/register"><a className="nav-link">Register</a></Link>
+                  </li>
+                </>
+              }
           </ul>
           <ul className="navbar-nav ml-auto">
             <li className="nav-item">

@@ -1,7 +1,5 @@
 import Carousel from "./Carousel/Carousel";
 import Visit from "./Visit/Visit";
-import LoginRegister from "../Authentication/LoginRegister/LoginRegister";
-import ResetPassword from "../Authentication/ResetPassword/ResetPassword";
 import ContactUs from "./ContactUs/ContactUs";
 
 function MainLayout() {

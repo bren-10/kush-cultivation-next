@@ -41,7 +41,7 @@ function ResetPassword() {
     })
     .then((data) => {
       console.log(data)
-      history.replace('/')
+      // history.replace('/') this should now be router
     })
     .catch(err => {
       alert.error(err.message)
@@ -49,7 +49,7 @@ function ResetPassword() {
   }
 
   function submitResetRequest() {
-    history.replace('/')
+    // history.replace('/') this should now be router
   }
   
   return (

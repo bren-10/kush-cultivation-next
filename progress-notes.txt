@@ -1,3 +1,17 @@
+29/01/2022
+
+- Improved authorization error handling
+- Improved auth navigation
+- Started with admin section
+- Added route protection
+
+22/01/2022
+
+- Added MongoDB for information storage
+- Revisiting authentication (password hashing)
+- Configured login & register routes
+- Minor styling improvements
+
 20/11
 
 - Improved contact form

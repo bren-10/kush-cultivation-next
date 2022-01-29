@@ -21,11 +21,11 @@ import Head from "next/head";
 import { ToastContainer } from 'react-toastify';
 import { Fragment, useEffect, useState } from "react";
 
-function MyApp({ Component, pageProps }) {
+export default function MyApp({ Component, pageProps }) {
   const [faviconScheme, setFaviconScheme] = useState("/k-light.png");
   const [hasVisitedState, setHasVisitedState] = useState(false);
   const [cartCount, setCartCount] = useState('')
-
+  
   function changeCartCount(){
     const cartItems = JSON.parse(localStorage.getItem('kush-cultivation__cartItems'))
     if (cartItems){
@@ -56,10 +56,11 @@ function MyApp({ Component, pageProps }) {
   useEffect(() => {
     changeCartCount()
   }, [])
+  
   return (
     <Fragment>
       <Head>
-        <meta charset="utf-8" />
+        <meta charSet="utf-8" />
         <link rel="icon" href={faviconScheme} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#000000" />
@@ -69,7 +70,7 @@ function MyApp({ Component, pageProps }) {
         />
         {/* <link rel="manifest" href="%PUBLIC_URL%/manifest.json" /> */}
         <link rel="preconnect" href="https://fonts.gstatic.com" />
-        <link rel="stylesheet" href="./index.html" />
+        {/* <link rel="stylesheet" href="./index.html" /> */}
         <link
           rel="stylesheet"
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -94,7 +95,7 @@ function MyApp({ Component, pageProps }) {
           integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
           crossOrigin="anonymous"
         ></script>
-        {hasVisitedState && <KushNavbar cartCount={cartCount}/>}
+        {hasVisitedState && <KushNavbar cartCount={cartCount} thereIsUser={pageProps.user}/>}
         <ToastContainer theme={"dark"}/>
         <Component {...pageProps} hasVisited={hasVisitedState} setVisited={() => setHasVisitedState(true)} changeCartCount={changeCartCount}/>
         {hasVisitedState && <Footer />}
@@ -102,5 +103,3 @@ function MyApp({ Component, pageProps }) {
     </Fragment>
   );
 }
-
-export default MyApp;

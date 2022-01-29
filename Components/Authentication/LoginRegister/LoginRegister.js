@@ -1,8 +1,10 @@
 import { useRef, useState, useEffect } from "react";
 import Link from 'next/link'
 import { toast } from "react-toastify";
+import { useRouter } from "next/dist/client/router";
 
 function LoginRegister(props) {
+  const router = useRouter()
   const emailInput = useRef();
   const firstNameInput = useRef();
   const lastNameInput = useRef();
@@ -32,6 +34,7 @@ function LoginRegister(props) {
       return
     }
     // Client is registering. Validate email, match passwords and add to DB
+    setIsLoading(true)
     if (!isLogin){
       if (passwordInput.current.value === passwordInput2.current.value){
 
@@ -46,16 +49,17 @@ function LoginRegister(props) {
         options.body = JSON.stringify(registrationInfo)
 
         const res = await fetch('/api/register', options)
-        if (res.ok) {
-          // TODO get data from response and log user in, or just redirect to login
-          toast.success("Successfully Registered!")
+        if (res.status === 200) {
+          router.replace('/auth/login')
+          toast.success("Successfully Registered! Please log in.")
         } else {
-          // TODO proper error handling with codes in /register
-          toast.error("Something went wrong.")
+          const errMsg = res.body.data
+          toast.error(errMsg)
         }
       } else {
         toast.warn("Passwords do not match!")
       }
+      setIsLoading(false)
     } else {
       const loginInfo = {
         "email": emailInput.current.value,
@@ -66,16 +70,25 @@ function LoginRegister(props) {
 
       const res = await fetch('/api/login', options)
       
-      if (res.ok){
+      if (res.status === 200){
+        router.replace('/')
         toast.success("Logged in successfully!")
+        localStorage.setItem('kush_cultivation__thereIsUser', 'true')
       } else {
-        toast.error("Something went wrong.")
-        // TODO proper error handling with codes in /login
+        const data = await res.json()
+        const errMsg = data.data
+        toast.error(errMsg)
       }
+      setIsLoading(false)
     }
     
   }
 
+  function handleEnterPressed(e){ // TODO doesn't work.
+    if (e.key === "Enter") {
+      // handleSubmit()
+    }
+  }
 
 
   useEffect(() => {
@@ -135,7 +148,7 @@ function LoginRegister(props) {
           ></input>
         </div>
       )}
-      <button className="btn btn-light m-3" onClick={handleSubmit}>
+      <button className="btn btn-light m-3" onClick={handleSubmit} onKeyPress={handleEnterPressed}>
         {isLoading ? <img className='loadingator' src='/assets/loading.gif'></img> : 'Submit'}
       </button>
       <div>

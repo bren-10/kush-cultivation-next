@@ -1,10 +1,10 @@
-import Cart from '../Components/Shop/Cart/Cart'
 import { withIronSessionSsr } from "iron-session/next";
+import Admin from "../Components/Admin/Admin";
 
-export default function cart(props) {
+export default function admin(props) {
   return (
     <div>
-      <Cart changeCartCount={props.changeCartCount}/>      
+      <Admin/>
     </div>
   )
 }
@@ -12,21 +12,19 @@ export default function cart(props) {
 export const getServerSideProps = withIronSessionSsr(
   async function getServerSideProps({ req }) {
     const user = req.session.user;
-    
-    if (!user) {
+
+    if (user && user.isAdmin){
       return {
-        redirect: {
-          permanent: false,
-          destination: "/login",
-        },
-        props:{},
-      };
+        props: {}
+      }
     }
 
     return {
-      props: {
-        user: user,
+      redirect: {
+        permanent: false,
+        destination: "/",
       },
+      props:{},
     };
   },
   {

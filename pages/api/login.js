@@ -16,15 +16,16 @@ export default withIronSessionApiRoute(
       const existingClient = await ClientModel.find({email: clData.email})
       bcrypt.compare(clData.password, existingClient[0].password, async function(err, result) {
         if (result) {
+          // TODO remove password before setting session
           req.session.user = existingClient;
           await req.session.save();
-          res.status(200).json({"data": existingClient})
+          res.status(200).send({"data": existingClient})
         } else {
-          res.status(400).json({"data": "Passwords do not match."}) // TODO perhaps status code 201? BC user does exist
+          res.status(201).send({"data": "Incorrect password."})
         }
       })
     } catch (err) {
-      res.status(400).json({"Error": err})
+      res.status(400).send({"data": "The credentials you provided are incorrect."})
     }
 
     
@@ -34,7 +35,7 @@ export default withIronSessionApiRoute(
     password: process.env.COOKIE_PW,
     // secure: true should be used in production (HTTPS) but can't be used in development (HTTP)
     cookieOptions: {
-      secure: !process.env.IN_PRODUCTION,
+      secure: !process.env.NEXT_PUBLIC_IN_PRODUCTION,
     },
   },
 );

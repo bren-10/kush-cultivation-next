@@ -11,7 +11,7 @@ export default function admin(props) {
 
 export const getServerSideProps = withIronSessionSsr(
   async function getServerSideProps({ req }) {
-    const user = req.session.user;
+    const user = req.session.user[0];
 
     if (user && user.isAdmin){
       return {

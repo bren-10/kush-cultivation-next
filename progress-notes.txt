@@ -1,3 +1,7 @@
+12/02/2022
+
+- Continued work on admin section:
+
 29/01/2022
 
 - Improved authorization error handling

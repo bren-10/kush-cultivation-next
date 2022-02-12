@@ -1,0 +1,34 @@
+.admin {
+  margin: 7rem 10rem;
+  color: white;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.788);
+  padding: 2rem;
+  border-radius: 10px;
+}
+
+.admin input {
+  display: block;
+  margin: 0 auto 1rem auto;
+  border-radius: 4px;
+  width: 40%;
+}
+
+.admin h1 {
+  margin-bottom: 1rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 2px solid whitesmoke;
+}
+
+.admin h5 {
+  margin: 2rem 0 0 0;
+}
+
+.admin hr {
+  background-color: white;
+  width: 30%;
+}
+
+.admin .file {
+  margin-top: 1rem;
+}

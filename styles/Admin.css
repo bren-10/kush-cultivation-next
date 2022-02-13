@@ -32,3 +32,8 @@
 .admin .file {
   margin-top: 1rem;
 }
+
+.uploaded-img {
+  max-width: 100%;
+  max-height: 100%;
+}

@@ -1,6 +1,6 @@
 import { withIronSessionApiRoute } from 'iron-session/next'
 import Mongoose from 'mongoose'
-import ClientModel from '../../mongoose/models';
+import { ClientModel } from '../../mongoose/models';
 import bcrypt from 'bcrypt'
 
 export default withIronSessionApiRoute(

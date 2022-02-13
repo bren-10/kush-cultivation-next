@@ -24,4 +24,46 @@ const ClientSchema = new Mongoose.Schema({
 
 const ClientModel = Mongoose.models.Client || Mongoose.model("Client", ClientSchema)
 
-export default ClientModel
+
+const ItemSchema = new Mongoose.Schema({
+  category: {
+    type: String,
+    trim: true,
+    required: true
+  },
+  itemName: {
+    type: String,
+    trim: true
+  },
+  stockCount: {
+    type: Number,
+    required: true,
+    trim: true
+  },
+  shortDescription: {
+    type: String,
+    trim: true
+  },
+  longDescription: {
+    type: String,
+    trim: true
+  },
+  dimensions: {
+    type: String,
+    trim: true
+  },
+  priceStandalone: {
+    type: Number,
+    trim: true
+  },
+  priceMulti: {
+    type: Array
+  },
+  images: {
+    type: String
+  }
+})
+
+const ItemModel = Mongoose.models.Item || Mongoose.model("Item", ItemSchema)
+
+export { ClientModel, ItemModel }

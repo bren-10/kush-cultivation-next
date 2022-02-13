@@ -1,10 +1,10 @@
 import { useState, useReducer, useRef } from 'react'
-import toast from 'react-nextjs-toast';
+import { toast } from "react-toastify";
 
 export default function Admin() {
   const [, forceUpdate] = useReducer(x => x + 1, 0);
   const [pricelist, setPricelist] = useState([])
-  const [uploadedImage, setUploadedImage] = useState('')
+  const [uploadedImages, setUploadedImages] = useState('')
   const categoryRef = useRef('')
   const itemNameRef = useRef('')
   const stockCountRef = useRef(1)
@@ -52,12 +52,57 @@ export default function Admin() {
 
     toDataURL(imgURL, function(dataUrl) {
       let base64Only = dataUrl.substring(dataUrl.indexOf(",") + 1)
-      setUploadedImage(base64Only)
+      // let arr = []
+      // arr.push(base64Only)
+      setUploadedImages(base64Only)
     })
   }
 
-  function handlePostToMongo(){
-    
+  async function handlePostToMongo(){
+    if (
+      categoryRef.current.value &&
+      itemNameRef.current.value &&
+      stockCountRef.current.value && 
+      shDescRef.current.value &&
+      lnDescRef.current.value &&
+      dimensionsRef.current.value && 
+      (stdaPriceRef.current.value || pricelist.length > 0) && 
+      uploadedImages
+    ){
+
+      let options = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: ''
+      }
+  
+      let objToPost = {
+        "category": categoryRef.current.value,
+        "itemName": itemNameRef.current.value,
+        "stockCount": stockCountRef.current.value,
+        "shortDescription": shDescRef.current.value,
+        "longDescription": lnDescRef.current.value,
+        "dimensions": dimensionsRef.current.value,
+        "priceStandalone": stdaPriceRef.current.value,
+        "priceMulti": pricelist,
+        "images": uploadedImages
+      }
+  
+      options.body = JSON.stringify(objToPost)
+      const response = await fetch('/api/edit_catalogue/addItem', options)
+      if (response.ok) {
+        const data = await response.json()
+        console.log(data)
+        toast.success("Successfully added item!")
+      } else {
+        toast.error('Something went wrong, contact Brendan.')
+      }
+
+    } else {
+      toast.warn("Please make sure you've supplied all the information.")
+    }
   }
 
   function handlePriceListField(){
@@ -73,7 +118,9 @@ export default function Admin() {
         <h5>Category</h5>
         <small>
           The description of the main category (Eg. Plant Propagation, Growing Mediums and Soil)<br/>
-          Try to keep it short (4 or less words). Capitalize every word that isn't "and"/"of"/"or" etc.
+          Try to keep it short (4 or less words). Capitalize every word that isn't "and"/"of"/"or" etc.<br/>
+          If the category already exists in your shop, make sure to spell it the exact same way or you might end up <br/>
+          with multiple categories that mean the same.
         </small>
         <input type="text" maxLength={25} ref={categoryRef}/>
 
@@ -134,8 +181,13 @@ export default function Admin() {
           <input type="file" name="my image" onChange={handleImageUpload}/>
         </div>
         
-        {uploadedImage && 
-          <img src={`data:image/png;base64,${uploadedImage}`} className="uploaded-img"/>
+        {/* {uploadedImages && uploadedImages.map((image, i) => (
+            <img key={i} src={`data:image/png;base64,${image}`} className="uploaded-img"/>
+          ))
+        } */}
+
+        {uploadedImages &&
+          <img src={`data:image/png;base64,${uploadedImages}`} className="uploaded-img"/>
         }
 
         <button className='btn btn-lg btn-primary' onClick={handlePostToMongo}>Add Item</button>

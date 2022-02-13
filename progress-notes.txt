@@ -1,6 +1,8 @@
-12/02/2022
+13/02/2022
 
-- Continued work on admin section:
+- Continued work on admin section
+- Added image conversion for uploading
+- Items can now be added to database via admin panel
 
 29/01/2022
 

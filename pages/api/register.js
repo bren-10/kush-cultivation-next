@@ -1,5 +1,5 @@
 import Mongoose from "mongoose";
-import ClientModel from "../../mongoose/models";
+import { ClientModel } from "../../mongoose/models";
 import bcrypt from 'bcrypt'
 
 export default async function handler(req, res) {

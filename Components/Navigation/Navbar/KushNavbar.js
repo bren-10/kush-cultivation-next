@@ -30,7 +30,7 @@ function KushNavbar(props) {
     const response = await fetch('/api/shop-keeper')
     if (response.ok) {
       const resData = await response.json()
-      console.log(resData)
+
       setData({
         isLoading: false,
         shop: resData

@@ -33,7 +33,8 @@ const ItemSchema = new Mongoose.Schema({
   },
   itemName: {
     type: String,
-    trim: true
+    trim: true,
+    unique: true
   },
   stockCount: {
     type: Number,

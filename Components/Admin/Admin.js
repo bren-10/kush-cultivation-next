@@ -1,13 +1,14 @@
 import { useState, useReducer, useRef, useEffect } from 'react'
 import { toast } from "react-toastify";
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
 
 export default function Admin() {
   const [, forceUpdate] = useReducer(x => x + 1, 0);
   const [pricelist, setPricelist] = useState([])
   const [uploadedImages, setUploadedImages] = useState([''])
   const [editType, setEditType] = useState('Add')
-  const [showEditPopup, setShowEditPopup] = useState(false)
-  const [showRemovePopup, setShowRemovePopup] = useState(false)
+  const [showPopup, setShowPopup] = useState('None')
   const categoryRef = useRef('')
   const itemNameRef = useRef('')
   const stockCountRef = useRef(1)
@@ -15,6 +16,14 @@ export default function Admin() {
   const lnDescRef = useRef('')
   const dimensionsRef = useRef('')
   const stdaPriceRef = useRef('')
+  const itemSearchRef = useRef('')
+  const fetchOptions = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: ''
+  }
 
   function handleAddPrice(){
     let obj = pricelist
@@ -64,50 +73,50 @@ export default function Admin() {
   }
 
   async function handlePostToMongo(){
-    if (
-      categoryRef.current.value &&
-      itemNameRef.current.value &&
-      stockCountRef.current.value && 
-      shDescRef.current.value &&
-      lnDescRef.current.value &&
-      dimensionsRef.current.value && 
-      (stdaPriceRef.current.value || pricelist.length > 0) && 
-      (uploadedImages[0] !== '')
-    ){
-      uploadedImages.pop()
-      let options = {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: ''
-      }
-  
-      let objToPost = {
-        "category": categoryRef.current.value,
-        "itemName": itemNameRef.current.value,
-        "stockCount": stockCountRef.current.value,
-        "shortDescription": shDescRef.current.value,
-        "longDescription": lnDescRef.current.value,
-        "dimensions": dimensionsRef.current.value,
-        "priceStandalone": stdaPriceRef.current.value,
-        "priceMulti": pricelist,
-        "images": uploadedImages
-      }
-  
-      options.body = JSON.stringify(objToPost)
-      const response = await fetch('/api/edit_catalogue/addItem', options)
-      if (response.ok) {
-        const data = await response.json()
-        console.log(data)
-        toast.success("Successfully added item!")
-      } else {
-        toast.error('Something went wrong, contact Brendan.')
-      }
+    if (editType === "Add" || editType === "Edit"){
+      if (
+        categoryRef.current.value &&
+        itemNameRef.current.value &&
+        stockCountRef.current.value && 
+        shDescRef.current.value &&
+        lnDescRef.current.value &&
+        dimensionsRef.current.value && 
+        (stdaPriceRef.current.value || pricelist.length > 0) && 
+        (uploadedImages[0] !== '')
+      ){
 
+        uploadedImages.pop()
+      
+        let objToPost = {
+          "category": categoryRef.current.value,
+          "itemName": itemNameRef.current.value,
+          "stockCount": stockCountRef.current.value,
+          "shortDescription": shDescRef.current.value,
+          "longDescription": lnDescRef.current.value,
+          "dimensions": dimensionsRef.current.value,
+          "priceStandalone": stdaPriceRef.current.value,
+          "priceMulti": pricelist,
+          "images": uploadedImages
+        }
+        let options = fetchOptions
+        options.body = JSON.stringify(objToPost)
+        const response = await fetch(`/api/edit_catalogue/${editType === 'Add' ? 'addItem' : 'editItem'}`, options)
+        if (response.ok) {
+          const data = await response.json()
+          console.log(data)
+          toast.success(`Successfully ${editType === 'Add' ? 'added' : 'edited'} item!`)
+          clearFields()
+        } else {
+          toast.error('Something went wrong, contact Brendan.')
+        }
+
+      } else {
+        toast.warn("Please make sure you've supplied all the information.")
+      }
     } else {
-      toast.warn("Please make sure you've supplied all the information.")
+      // Handle delete
     }
+    
   }
 
   function handlePriceListField(event, index, type){
@@ -121,19 +130,96 @@ export default function Admin() {
     forceUpdate()
   }
 
+  function popuplateEditTemplate(item){
+    categoryRef.current.value = item.category
+    itemNameRef.current.value = item.itemName
+    stockCountRef.current.value = item.stockCount
+    shDescRef.current.value = item.shortDescription
+    lnDescRef.current.value = item.longDescription
+    dimensionsRef.current.value = item.dimensions
+    stdaPriceRef.current.value = item.priceStandalone
+    setPricelist(item.priceMulti)
+    setUploadedImages(item.images)
+    forceUpdate()
+  }
+
+  async function deleteItem(){
+    let options = fetchOptions
+    options.body = JSON.stringify(itemSearchRef.current.value)
+    const response = await fetch('/api/edit_catalogue/deleteItem', options)
+    if (response.ok) {
+      const data = await response.json() // For when needed
+      toast.success("Successfully removed that item.")
+    } else {
+      toast.error("Something went wrong trying to delete this item.")
+    }
+  }
+
+  async function onSearchItem(){
+    let options = fetchOptions
+    options.body = JSON.stringify(itemSearchRef.current.value)
+    const response = await fetch('/api/search_catalogue', options)
+    if (response.ok){
+      const data = await response.json()
+      if (data && editType === 'Edit') {
+        popuplateEditTemplate(data.data[0])
+        toast.success("Item found, please edit as needed.")
+      } else {
+        let userResponse = window.confirm(`${data.data.length} instance found with the item name "${itemSearchRef.current.value}". Delete this item completely?`)
+        if (userResponse) {
+          deleteItem()
+        }
+      }
+      setShowPopup('None')
+    } else {
+      toast.warn("No item with that name found. (Or other error)")
+    }
+  }
+
+  function clearFields(){
+    categoryRef.current.value = ''
+    itemNameRef.current.value = ''
+    stockCountRef.current.value = 1
+    shDescRef.current.value = ''
+    lnDescRef.current.value = ''
+    dimensionsRef.current.value = ''
+    stdaPriceRef.current.value = ''
+    setPricelist([])
+    setUploadedImages([''])
+  }
 
   useEffect(() => {
     if (editType === "Edit"){
-      setShowEditPopup(true)
+      setShowPopup('Edit')
     } else if (editType === "Remove") {
-      setShowRemovePopup(true)
+      setShowPopup('Remove')
+    } else {
+      // User is adding
+      setShowPopup("None")
     }
+
+    clearFields()
   }, [editType])
   
 
   return (
     <div className="admin">
       <h1>Admin Page</h1>
+        
+        <Popup open={showPopup !== 'None'} onClose={() => setShowPopup("None")}>
+          <div className='edit-modal'>
+            <h4>Please enter the exact item name you wish to {showPopup}</h4>
+            <p><small>(Search criteria is case-sensitive)</small></p>
+            <input type='text' ref={itemSearchRef}></input>
+            <div>
+              <button className='btn btn-lg btn-primary m-3' onClick={onSearchItem}>Submit</button>
+            </div>
+            <div>
+              <button className='btn btn-sm btn-danger m-1' onClick={() => setShowPopup('None')}>Cancel</button>
+            </div>
+          </div>
+        </Popup>
+
         <button className={`m-3 btn btn-lg ${editType === "Add" ? 'btn-light' : 'btn-outline-light'}`} onClick={() => setEditType('Add')}>Add Item</button>
         <button className={`m-3 btn btn-lg ${editType === "Edit" ? 'btn-light' : 'btn-outline-light'}`} onClick={() => setEditType('Edit')}>Edit Item</button>
         <button className={`m-3 btn btn-lg ${editType === "Remove" ? 'btn-light' : 'btn-outline-light'}`} onClick={() => setEditType('Remove')}>Remove Item</button>
@@ -150,7 +236,7 @@ export default function Admin() {
         <input type="text" maxLength={25} ref={categoryRef}/>
 
         <h5>Item Name</h5>
-        <small>The name you want displayed for the item</small>
+        <small>The name you want displayed for the item (This MUST be unique to your item list)</small>
         <input type="text" ref={itemNameRef}/>
 
         <h5>Stock Count</h5>
@@ -211,14 +297,20 @@ export default function Admin() {
 
         {uploadedImages.length > 0 && uploadedImages.map((image, i) => (
           image !== '' ? 
-          <img key={i} src={`data:image/png;base64,${image}`} className="uploaded-img"/>
+          <div key={i}>
+            <img src={`data:image/png;base64,${image}`} className="uploaded-img"/>
+          </div>
           :
           ''
         ))
         } 
-        <div className='mt-5'>
-          <button className='btn btn-lg btn-primary' onClick={handlePostToMongo}>Add Item</button>
-        </div>
+        {editType !== "Remove" &&
+          <div className='mt-5'>
+            <button className='btn btn-lg btn-primary' onClick={handlePostToMongo}>
+              {editType === "Add" ? "Add item" : editType === 'Edit' && "Submit Edit" }
+            </button>
+          </div>
+        }
 
 
         {/* ================================================================== */}

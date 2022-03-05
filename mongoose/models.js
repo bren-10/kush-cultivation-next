@@ -60,7 +60,7 @@ const ItemSchema = new Mongoose.Schema({
     type: Array
   },
   images: {
-    type: String
+    type: Array
   }
 })
 

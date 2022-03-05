@@ -15,6 +15,7 @@ export default async function handler(req, res) {
       const item = await ItemModel.create(itemData);
       res.status(200).json({ data: item });
     } catch (err) {
+      console.log('we here', err)
       res.status(400).json({ error: "Something went wrong." });
     }
   }

@@ -4,7 +4,10 @@ import { toast } from "react-toastify";
 export default function Admin() {
   const [, forceUpdate] = useReducer(x => x + 1, 0);
   const [pricelist, setPricelist] = useState([])
-  const [uploadedImages, setUploadedImages] = useState('')
+  const [uploadedImages, setUploadedImages] = useState([''])
+  const [editType, setEditType] = useState('Add')
+  const [showEditPopup, setShowEditPopup] = useState(false)
+  const [showRemovePopup, setShowRemovePopup] = useState(false)
   const categoryRef = useRef('')
   const itemNameRef = useRef('')
   const stockCountRef = useRef(1)
@@ -45,16 +48,18 @@ export default function Admin() {
     xhr.send();
   }
 
-  function handleImageUpload(e){
+  function handleImageUpload(e, index){
     let binaryData = []
     binaryData.push(e.target.files[0])
     let imgURL = window.URL.createObjectURL(new Blob(binaryData))
 
     toDataURL(imgURL, function(dataUrl) {
       let base64Only = dataUrl.substring(dataUrl.indexOf(",") + 1)
-      // let arr = []
-      // arr.push(base64Only)
-      setUploadedImages(base64Only)
+      let prev = uploadedImages
+      prev[index] = base64Only
+      prev.push('')
+      setUploadedImages(prev)
+      forceUpdate()
     })
   }
 
@@ -67,9 +72,9 @@ export default function Admin() {
       lnDescRef.current.value &&
       dimensionsRef.current.value && 
       (stdaPriceRef.current.value || pricelist.length > 0) && 
-      uploadedImages
+      (uploadedImages[0] !== '')
     ){
-
+      uploadedImages.pop()
       let options = {
         method: "POST",
         headers: {
@@ -105,15 +110,35 @@ export default function Admin() {
     }
   }
 
-  function handlePriceListField(){
-
+  function handlePriceListField(event, index, type){
+    let prev = pricelist
+    let value = event.target.value
+    if (type === 'Cost'){
+      parseInt(value)
+    }
+    prev[index][type] = value
+    setPricelist(prev)
+    forceUpdate()
   }
 
+
+  useEffect(() => {
+    if (editType === "Edit"){
+      setShowEditPopup(true)
+    } else if (editType === "Remove") {
+      setShowRemovePopup(true)
+    }
+  }, [editType])
+  
 
   return (
     <div className="admin">
       <h1>Admin Page</h1>
-        <h3>Add an item</h3>
+        <button className={`m-3 btn btn-lg ${editType === "Add" ? 'btn-light' : 'btn-outline-light'}`} onClick={() => setEditType('Add')}>Add Item</button>
+        <button className={`m-3 btn btn-lg ${editType === "Edit" ? 'btn-light' : 'btn-outline-light'}`} onClick={() => setEditType('Edit')}>Edit Item</button>
+        <button className={`m-3 btn btn-lg ${editType === "Remove" ? 'btn-light' : 'btn-outline-light'}`} onClick={() => setEditType('Remove')}>Remove Item</button>
+        <hr/>
+        <h3>{editType} an item</h3>
 
         <h5>Category</h5>
         <small>
@@ -165,8 +190,8 @@ export default function Admin() {
           {pricelist && pricelist.map((item, i) => (
             <div key={i} className='mt-3'>
               <>Item {i+1}</>
-              <input type="text" placeholder={item.Description} onChange={handlePriceListField}/>
-              <input type="number" placeholder={item.Cost} onChange={handlePriceListField}/>
+              <input type="text" placeholder={item.Description} onChange={(e) => handlePriceListField(e, i, 'Description')}/>
+              <input type="number" placeholder={item.Cost} onChange={(e) => handlePriceListField(e, i, 'Cost')}/>
               <button className='btn btn-sm btn-danger' onClick={() => handleDeletePrice(i)}>Delete Item {i + 1}</button>
               <hr/>
             </div>
@@ -177,20 +202,23 @@ export default function Admin() {
 
         <h5>Upload An Image</h5>
         <small>Try limit file size to below 5mb, otherwise it's going to load slowly. Anything over 16mb might crash your database.</small>
-        <div className='file'>
-          <input type="file" name="my image" onChange={handleImageUpload}/>
-        </div>
-        
-        {/* {uploadedImages && uploadedImages.map((image, i) => (
-            <img key={i} src={`data:image/png;base64,${image}`} className="uploaded-img"/>
-          ))
-        } */}
 
-        {uploadedImages &&
-          <img src={`data:image/png;base64,${uploadedImages}`} className="uploaded-img"/>
+        {uploadedImages[uploadedImages.length - 1] === '' &&
+          <div className='file'>
+            <input type="file" name={`my image ${uploadedImages.length - 1}`} onChange={(e) => handleImageUpload(e, uploadedImages.length - 1)}/>
+          </div>
         }
 
-        <button className='btn btn-lg btn-primary' onClick={handlePostToMongo}>Add Item</button>
+        {uploadedImages.length > 0 && uploadedImages.map((image, i) => (
+          image !== '' ? 
+          <img key={i} src={`data:image/png;base64,${image}`} className="uploaded-img"/>
+          :
+          ''
+        ))
+        } 
+        <div className='mt-5'>
+          <button className='btn btn-lg btn-primary' onClick={handlePostToMongo}>Add Item</button>
+        </div>
 
 
         {/* ================================================================== */}

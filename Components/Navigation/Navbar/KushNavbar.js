@@ -1,4 +1,4 @@
-import { useState, useEffect, Fragment } from 'react'
+import { useState, useEffect, Fragment, useReducer } from 'react'
 import { FaShoppingCart, FaFacebook } from 'react-icons/fa';
 import { AiFillInstagram, AiFillYoutube } from 'react-icons/ai';
 import { RiWhatsappFill } from 'react-icons/ri';
@@ -9,6 +9,8 @@ import { toast } from 'react-toastify';
 
 function KushNavbar(props) {
   const router = useRouter()
+  const [, forceUpdate] = useReducer(x => x + 1, 0);
+  
   const [data, setData] = useState({
     isLoading: true,
     shop: ''
@@ -24,16 +26,22 @@ function KushNavbar(props) {
     }
   }
 
+  async function fetchShopCategories() {
+    const response = await fetch('/api/shop-keeper')
+    if (response.ok) {
+      const resData = await response.json()
+      console.log(resData)
+      setData({
+        isLoading: false,
+        shop: resData
+      })
+      forceUpdate()    
+    }
+  }
+
   useEffect(() => {
     if (data.isLoading) {
-      fetch("https://api.npoint.io/006d5eec44ccb6652b05") // remember to move this to .env file
-        .then((response) => response.json())
-        .then((result) => {
-          setData({
-            isLoading: false,
-            shop: result
-          });
-        })
+      fetchShopCategories()
     }
   }, []);
 
@@ -53,9 +61,9 @@ function KushNavbar(props) {
                 Categories
               </span>
               <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                {Object.keys(data.shop).map((key) => (
+                {data.shop && data.shop.data.map((item, i) => (
 
-                  <Link href={`/shop/${key}`} key={key}><a className="dropdown-item">{key}</a></Link>
+                  <Link href={`/shop/${item['category']}`} key={i}><a className="dropdown-item">{item['category']}</a></Link>
                 ))}
               </div>
             </li>

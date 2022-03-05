@@ -10,7 +10,7 @@ export default withIronSessionApiRoute(
     password: process.env.COOKIE_PW,
     // secure: true should be used in production (HTTPS) but can't be used in development (HTTP)
     cookieOptions: {
-      secure: true,
+      secure: !process.env.NEXT_PUBLIC_IN_PRODUCTION,
     },
   },
 );

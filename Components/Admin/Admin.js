@@ -167,7 +167,7 @@ export default function Admin() {
       } else {
         let userResponse = window.confirm(`${data.data.length} instance found with the item name "${itemSearchRef.current.value}". Delete this item completely?`)
         if (userResponse) {
-          deleteItem()
+          deleteItem() // 
         }
       }
       setShowPopup('None')

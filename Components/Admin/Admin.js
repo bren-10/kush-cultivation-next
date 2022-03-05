@@ -1,4 +1,4 @@
-import { useState, useReducer, useRef } from 'react'
+import { useState, useReducer, useRef, useEffect } from 'react'
 import { toast } from "react-toastify";
 
 export default function Admin() {
@@ -32,7 +32,7 @@ export default function Admin() {
     setPricelist(obj)
     forceUpdate()
   }
-  //
+  
   // Source: https://stackoverflow.com/questions/6150289/how-can-i-convert-an-image-into-base64-string-using-javascript
   function toDataURL(url, callback) {
     var xhr = new XMLHttpRequest();

@@ -2,11 +2,13 @@ import ItemCard from "./ItemCard/ItemCard";
 import { useEffect, useState } from "react";
 import ReadMoreModal from "../Modals/ReadMoreModal/ReadMoreModal";
 import Image from 'next/image'
+import toast from 'react-toastify';
+import { object } from "sharp/lib/is";
 
 function Shop(props) {
   const [data, setData] = useState({
     isLoading: true,
-    shop: {},
+    shop: '',
   });
   const [openReadModal, setOpenReadModal] = useState({
     _: false,
@@ -30,18 +32,54 @@ function Shop(props) {
     })
   }
 
+  // Source: https://stackoverflow.com/questions/1129216/sort-array-of-objects-by-string-property-value
+  function compare( a, b ) {
+    if ( a.category < b.category ){
+      return -1;
+    }
+    if ( a.category > b.category ){
+      return 1;
+    }
+    return 0;
+  }
+
+  function organiseByCategory(data) {
+    let obj = {}
+
+    data.forEach(item => {
+      if (!(Object.keys(obj).includes(item.category))) {
+        obj[item.category] = []
+        obj[item.category].push(item)
+      } else {
+        obj[item.category].push(item)
+      }
+    })
+
+    // Sort a-z
+    Object.keys(obj).sort()
+    return obj
+  }
+
+  async function fetchCatalogue() {
+    const response = await fetch('/api/shop-keeper')
+    if (response.ok){
+      const data = await response.json()
+      let sortedData = organiseByCategory(data.data)
+      setData({
+        isLoading: false,
+        shop: sortedData,
+      });
+    } else {
+      toast.error('There was a problem fetching the catalogue.')
+      setData({
+        isLoading: false,
+        shop: '',
+      });
+    }
+  }
+
   useEffect(() => {
-    fetch("/api/shop-keeper")
-      .then((response) => response.json())
-      .then((result) => {
-        setData({
-          isLoading: false,
-          shop: result,
-        });
-      })
-      .catch ((e) => {
-        console.log(`%c ${e}`, 'background: red; color: white;')
-      })
+    fetchCatalogue()
   }, []);
 
   return (
@@ -60,22 +98,22 @@ function Shop(props) {
         </div>
       ) : (
         <div>
-          {data['shop'] ? 
+          {data.shop ? 
             props.category !== 'All' ? 
-              Object.keys(data['shop'][props.category]).map((item, i) => (
+              Object.keys(data.shop).filter(category => (category === props.category)).map((filteredItem, i) => (
                 <div key={i}>
                   <ItemCard
-                    completeItem={data['shop'][props.category][item]}
+                    completeItem={data.shop[filteredItem]}
                     onReadMore={onReadMore}
                     changeCartCount={props.changeCartCount}
                   />
                 </div>
               ))
               :
-              Object.keys(data['shop']).map((category, i) => (
+              data.shop && Object.keys(data.shop).map((category, i) => (
                 <div key={i}>
                   <h3>{category}</h3>
-                  {Object.keys(data['shop'][category]).map((item, i) => (
+                  {Object.keys(data.shop[category]).map((item, i) => (
                     <div key={item}>
                       <ItemCard
                         completeItem={data['shop'][category][item]}

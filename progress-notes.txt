@@ -1,3 +1,12 @@
+06/03/2022
+
+- Fixed shop page so that new database displays correctly
+
+05/03/2022
+
+- Added functionality to edit and remove items from database
+- Fixed category listing in navagation bar
+
 13/02/2022
 
 - Continued work on admin section

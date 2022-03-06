@@ -11,7 +11,7 @@ function Cart(props) {
   const [subTotal, setSubTotal] = useState(0);
 
   function onCheckOut() {
-    console.log("Check me out");
+    console.log("Check me out"); // Here
   }
 
   function onQtyChange(e, i) {

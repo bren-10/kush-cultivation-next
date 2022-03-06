@@ -9,17 +9,25 @@ function ItemCard(props) {
   const [priceOption, setPriceOption] = useState('')
 
   function selectPriceOption(e) {
-    const priceList = props.completeItem["priceList"];
+    if (props.completeItem.priceStandalone) {
+      return
+    }
+    const priceList = props.completeItem["priceMulti"];
     if (e) {
-      setPriceOption({
-        selectedOption: e.target.value,
-        price: priceList[e.target.value]
-      });
+      priceList.forEach(item => {
+        if (item["Description"] === e.target.value) {
+          setPriceOption({
+            selectedOption: item["Description"],
+            price: item["Cost"]
+          });
+        }
+      })
+      
     } else {
       setPriceOption({
-        selectedOption: Object.keys(priceList)[1],
-        price: priceList[Object.keys(priceList)[1]]
-      });
+        selectPriceOption: priceList[0]["Description"],
+        price: priceList[0]["Cost"]
+      })
     }
   }
 
@@ -30,9 +38,9 @@ function ItemCard(props) {
     }
 
     let itemToAdd = {
-      itemName: props.completeItem.name,
+      itemName: props.completeItem.itemName,
       selectedOption: priceOption.selectedOption,
-      price: props.completeItem['priceList']['standAlone'] || priceOption.price,
+      price: props.completeItem.priceStandalone || priceOption.price,
       qty: 1
     };
 
@@ -53,55 +61,53 @@ function ItemCard(props) {
           <div className="row">
             <div className="col-md-4">
               <img
-                src={props.completeItem['image']}
+                src={`data:image/png;base64,${props.completeItem.images[0]}`}
                 className="card-img"
-                alt={props.completeItem["name"]}
+                alt={props.completeItem["itemName"]}
               />
             </div>
             <div className="col-md-8">
               <div className="card-body">
-                <h5 className="card-title">{props.completeItem["name"]}</h5>
+                <h5 className="card-title">{props.completeItem["itemName"]}</h5>
                 <h5 className="card-title price d-inline">
                   R
-                  {props.completeItem["priceList"]["standAlone"] ||
+                  {props.completeItem["priceStandalone"] ||
                     priceOption.price}
                 </h5>
-                {!props.completeItem["priceList"]["standAlone"] && (
+                {!props.completeItem["priceStandalone"] && (
                   <select className="select-option" onChange={selectPriceOption}>
-                    {Object.keys(props.completeItem["priceList"]).map(
+                    {props.completeItem["priceMulti"].map(
                       (option, i) =>
-                        option !== "standAlone" && (
+                        (
                           <option
                             key={i}
                             style={{ backgroundColor: "#3d3d3d" }}
-                            value={option}
+                            value={option["Description"]}
                           >
-                            {option}
+                            {option["Description"]}
                           </option>
                         )
                     )}
                   </select>
                 )}
                 <span className="stock">
-                  {props.completeItem["stock"] ? (
-                    <span>Stock: {props.completeItem["stock"]}</span>
+                  {props.completeItem.stockCount ? (
+                    <span>Stock: {props.completeItem.stockCount}</span>
                   ) : (
-                    <span style={{ color: "red" }}>Out of stock.</span>
+                    <span style={{ color: "red" }}>Out of stock</span>
                   )}
                 </span>
                 <hr></hr>
                 <p className="card-text">
-                  {props.completeItem["description"].length > 210
-                    ? `${props.completeItem["description"].substring(0, 210)}...`
-                    : props.completeItem["description"]}
+                  {props.completeItem.shortDescription}
                 </p>
                 <div style={{ position: "absolute", bottom: "1rem" }}>
                   <button
                     className="btn btn-sm btn-light"
                     onClick={() =>
                       props.onReadMore(
-                        props.completeItem["name"],
-                        `${props.completeItem["description"]}\n\n${props.completeItem["readMore"]} Dimensions: ${props.completeItem["dimensions"]}`
+                        props.completeItem["itemName"],
+                        `${props.completeItem.shortDescription}\n\n${props.completeItem.longDescription} Dimensions: ${props.completeItem.dimensions}`
                       )
                     }
                   >

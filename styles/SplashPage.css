@@ -67,6 +67,13 @@
   }
 }
 
+@media (max-width: 1050px){
+  .kush-splash {
+    margin-top: 12rem;
+    width: 80%;
+  }
+}
+
 /* .video-container {
   position: absolute;
   width: 80%;

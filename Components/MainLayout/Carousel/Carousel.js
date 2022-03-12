@@ -76,6 +76,18 @@ function Carousel() {
           <span className="sr-only">Next</span>
         </a>
       </div>
+
+      {/* Mobile only */}
+      <div className='mobile-only'>
+        <div className='main-mobile-top'>
+          <Link href='/shop'>
+            <img className='mobile-collage' src='/collage.jpg'></img>
+          </Link>
+          <div className='text-center py-4'>
+            <Link href="/shop"><button className='btn btn-md btn-light'><strong>Shop Now </strong><FaLongArrowAltRight/></button></Link>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }

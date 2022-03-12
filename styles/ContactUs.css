@@ -11,3 +11,10 @@
   width: 30%;
   margin: 0 auto;
 }
+
+@media(max-width:1050px){
+  .contact-us form {
+    width: 90%;
+    margin: 0 auto;
+  }
+}

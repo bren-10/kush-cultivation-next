@@ -28,7 +28,6 @@ function ResetPassword() {
         alert.success('Password reset successfully.')
       } else {
         res.json().then(data => {
-          console.log(data)
           let errorMsg = 'Reset failed, please try again.'
           if (data.error && data.error.message) {
             // errorMsg = data.error.message.split(' : ');
@@ -40,7 +39,6 @@ function ResetPassword() {
       }
     })
     .then((data) => {
-      console.log(data)
       // history.replace('/') this should now be router
     })
     .catch(err => {

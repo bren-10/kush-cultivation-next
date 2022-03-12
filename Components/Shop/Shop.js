@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import ReadMoreModal from "../Modals/ReadMoreModal/ReadMoreModal";
 import Image from 'next/image'
 import toast from 'react-toastify';
-import { object } from "sharp/lib/is";
 
 function Shop(props) {
   const [data, setData] = useState({
@@ -101,13 +100,15 @@ function Shop(props) {
           {data.shop ? 
             props.category !== 'All' ? 
               Object.keys(data.shop).filter(category => (category === props.category)).map((filteredItem, i) => (
-                <div key={i}>
-                  <ItemCard
-                    completeItem={data.shop[filteredItem]}
-                    onReadMore={onReadMore}
-                    changeCartCount={props.changeCartCount}
-                  />
-                </div>
+                data.shop[filteredItem].map((item, i) => (
+                  <div key={i}>
+                    <ItemCard
+                      completeItem={item}
+                      onReadMore={onReadMore}
+                      changeCartCount={props.changeCartCount}
+                    />
+                  </div>
+                ))
               ))
               :
               data.shop && Object.keys(data.shop).map((category, i) => (

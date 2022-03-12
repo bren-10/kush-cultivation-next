@@ -35,3 +35,15 @@
 .footer .mail{
   font-size: 1.4rem;
 }
+
+@media(max-width:1050px){
+  .footer p {
+    margin-bottom: 0;
+    font-size: 0.7rem;
+  }
+
+  .footer h6 {
+    font-size: 0.8rem;
+    margin-bottom: 0;
+  }
+}

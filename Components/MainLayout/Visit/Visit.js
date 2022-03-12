@@ -9,6 +9,26 @@ function Visit() {
       <RiPlantFill className="plant"></RiPlantFill>
       <div className="row">
         <div className="col-lg text-center">
+          <h4>Schedule a visit below</h4>
+          <hr></hr>
+          <h6>Email</h6>
+          <a href="mailto:kushcultivation@gmail.com">
+            <GrMail className="comm-icon" />
+          </a>
+          <h6>Whatsapp</h6>
+          <a
+            href="https://wa.me/27721871099?text=Hi!%20I%20Have%20a%20query..."
+            target="_blank"
+            rel="noreferrer"
+          >
+            <RiWhatsappFill className="comm-icon" />
+          </a>
+          <h6>Call (mobile)</h6>
+          <a href="tel:+27721871099">
+            <FaPhoneAlt className="comm-icon" />
+          </a>
+        </div>
+        <div className="col-lg text-center">
           <h4>In-shop trading hours:</h4>
           <hr></hr>
           <p>
@@ -27,26 +47,6 @@ function Visit() {
             <b>Public Holidays:</b>
             <br></br>Please check in advance
           </p>
-        </div>
-        <div className="col-lg text-center">
-          <h4>Schedule a visit below</h4>
-          <hr></hr>
-          <h6>Email</h6>
-          <a href="mailto:kushcultivation@gmail.com">
-            <GrMail className="comm-icon" />
-          </a>
-          <h6>Whatsapp</h6>
-          <a
-            href="https://wa.me/27721871099?text=Hi!%20I%20Have%20a%20query..."
-            target="_blank"
-            rel="noreferrer"
-          >
-            <RiWhatsappFill className="comm-icon" />
-          </a>
-          <h6>Call (mobile)</h6>
-          <a href="tel:+27721871099">
-            <FaPhoneAlt className="comm-icon"/>
-          </a>
         </div>
       </div>
     </div>

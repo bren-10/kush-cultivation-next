@@ -34,3 +34,13 @@ a {
     opacity: 1;
   }
 }
+
+.mobile-only {
+  display: none;
+}
+
+@media(max-width:1050px){
+  .mobile-only {
+    display: inline;
+  }
+}

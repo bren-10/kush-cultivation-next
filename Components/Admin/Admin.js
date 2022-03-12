@@ -103,7 +103,6 @@ export default function Admin() {
         const response = await fetch(`/api/edit_catalogue/${editType === 'Add' ? 'addItem' : 'editItem'}`, options)
         if (response.ok) {
           const data = await response.json()
-          console.log(data)
           toast.success(`Successfully ${editType === 'Add' ? 'added' : 'edited'} item!`)
           clearFields()
         } else {

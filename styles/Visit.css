@@ -29,3 +29,9 @@
   color: inherit;
   margin: 3rem;
 }
+
+@media(max-width:1050px){
+  .visit h4 {
+    margin-top: 3rem;
+  }
+}

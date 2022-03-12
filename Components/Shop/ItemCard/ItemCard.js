@@ -7,7 +7,6 @@ import Image from 'next/image'
 function ItemCard(props) {
   // const alert = useAlert();
   const [priceOption, setPriceOption] = useState('')
-
   function selectPriceOption(e) {
     if (props.completeItem.priceStandalone) {
       return
@@ -114,7 +113,7 @@ function ItemCard(props) {
                     Read More
                   </button>
                 </div>
-                <div style={{ position: "absolute", bottom: "1rem", right: "0" }}>
+                <div style={{ position: "absolute", bottom: "1rem", right: "35px" }}>
                   <button
                     className="btn btn-light float-right"
                     onClick={addToCart}

@@ -82,3 +82,20 @@
     height: 350px;
   }
 }
+
+@media(max-width:1050px){
+
+  .carousel {
+    display: none; 
+  }
+
+  .mobile-collage {
+    width: 100%
+  }
+
+  .main-mobile-top {
+    padding-top: 3.8rem;
+    background-color: #131313f6;
+    border-bottom: 2px solid rgba(206, 206, 206, 0.781);
+  }
+}

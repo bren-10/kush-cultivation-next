@@ -34,3 +34,10 @@
   width: 2rem !important;
   filter: brightness(10%);
 }
+
+@media(max-width:1050px){
+  .login-register {
+    margin-top: 12rem;
+    width: 90%;
+  }
+}

@@ -1,17 +1,49 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useReducer, useRef, useState } from "react";
 import { FaTrash } from "react-icons/fa";
 import Image from 'next/image'
+import {toast} from "react-toastify";
 
 function Cart(props) {
+  const formRef = useRef()
+  const [, forceUpdate] = useReducer(x => x + 1, 0);
   const [cartItems, setCartItems] = useState({
     isLoading: true,
     data: "",
   });
-
   const [subTotal, setSubTotal] = useState(0);
 
-  function onCheckOut() {
-    console.log("Check me out"); // Here
+  const fetchOptions = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: ''
+  }
+
+  async function onCheckOut() {
+    const response = await fetch('/api/user')
+    if (response.ok) {
+      const data = await response.json()
+      formRef.current[0].value = `${data['user'][0]["firstName"]} ${data['user'][0]["lastName"]}`
+      formRef.current[1].value = data['user'][0]["email"]
+      formRef.current[2].value = JSON.stringify(cartItems.data)
+      formRef.current.submit() // ! HERE. This refreshes the page regardless of preventDefault()
+    } else {
+      toast.error("Something went wrong retrieving user info. Please contact us.")
+    }
+  }
+
+  async function sendOrderRequest(e){
+    e.preventDefault()
+    let options = fetchOptions
+    options.body = JSON.stringify(formRef.current)
+    const response = await fetch ('/api/order-email', options)
+    if (response.ok) {
+      const data = await response.json()
+      console.log(data)
+    } else {
+      toast.error("Something went wrong with the order request. Please contact us.")
+    }
   }
 
   function onQtyChange(e, i) {
@@ -70,10 +102,18 @@ function Cart(props) {
         tot += parseInt(item["price"] * item["qty"]);
       });
     setSubTotal(tot.toFixed(2));
-  }, [cartItems.data]);
+    forceUpdate()
+  }, [cartItems]);
 
   return (
     <div className="cart-component">
+
+      <form ref={formRef} onSubmit={sendOrderRequest}>
+        <input hidden type="text" name="cl_name" />
+        <input hidden type="text" name="to_email" />
+        <input hidden type="text" name="items" />
+      </form>
+
       <h1>My Cart</h1>
       {cartItems.isLoading ? (
         <img

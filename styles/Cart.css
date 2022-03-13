@@ -89,3 +89,10 @@ input[type=number] {
   width: 70%;
   text-align: center;
 }
+
+@media (max-width: 1050px) {
+  .cart-component .buttons {
+    margin: 2rem 1rem;
+    width: unset;
+  }
+}

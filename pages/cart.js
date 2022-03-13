@@ -17,7 +17,7 @@ export const getServerSideProps = withIronSessionSsr(
       return {
         redirect: {
           permanent: false,
-          destination: "/login",
+          destination: "/auth/login"
         },
         props:{},
       };

@@ -16,6 +16,7 @@ import "../styles/SplashPage.css";
 import "../styles/Visit.css";
 import "../styles/Admin.css";
 import 'react-toastify/dist/ReactToastify.css';
+import "react-image-gallery/styles/css/image-gallery.css"
 import KushNavbar from "../Components/Navigation/Navbar/KushNavbar";
 import Footer from "../Components/Footer/Footer";
 import Head from "next/head";

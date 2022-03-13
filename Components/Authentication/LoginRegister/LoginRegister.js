@@ -23,7 +23,8 @@ function LoginRegister(props) {
     body: ''
   }
 
-  async function handleSubmit(){
+  async function handleSubmit(e){
+    e.preventDefault()
     if (!(emailInput.current.value && passwordInput.current.value)){
       toast.warn("Not all required fields have been provided.")
       return
@@ -102,55 +103,57 @@ function LoginRegister(props) {
   return (
     <div className="login-register">
       <h1>{isLogin ? "Login" : "Register"}</h1>
-      {!isLogin && (
-        <div>
-          <div className="form-group">
-            <input
-              className="form-control"
-              type="text"
-              placeholder="First Name"
-              ref={firstNameInput}
-            ></input>
+      <form>
+        {!isLogin && (
+          <div>
+            <div className="form-group">
+              <input
+                className="form-control"
+                type="text"
+                placeholder="First Name"
+                ref={firstNameInput}
+              ></input>
+            </div>
+            <div className="form-group">
+              <input
+                className="form-control"
+                type="text"
+                placeholder="Last Name"
+                ref={lastNameInput}
+              ></input>
+            </div>
           </div>
-          <div className="form-group">
-            <input
-              className="form-control"
-              type="text"
-              placeholder="Last Name"
-              ref={lastNameInput}
-            ></input>
-          </div>
+        )}
+        <div className="form-group">
+          <input
+            className="form-control"
+            type="email"
+            placeholder="Email"
+            ref={emailInput}
+          ></input>
         </div>
-      )}
-      <div className="form-group">
-        <input
-          className="form-control"
-          type="email"
-          placeholder="Email"
-          ref={emailInput}
-        ></input>
-      </div>
-      <div className="form-group">
-        <input
-          className="form-control"
-          type="password"
-          placeholder="Password"
-          ref={passwordInput}
-        ></input>
-      </div>
-      {!isLogin && (
         <div className="form-group">
           <input
             className="form-control"
             type="password"
-            placeholder="Confirm Password"
-            ref={passwordInput2}
+            placeholder="Password"
+            ref={passwordInput}
           ></input>
         </div>
-      )}
-      <button className="btn btn-light m-3" onClick={handleSubmit} onKeyPress={handleEnterPressed}>
-        {isLoading ? <img className='loadingator' src='/assets/loading.gif'></img> : 'Submit'}
-      </button>
+        {!isLogin && (
+          <div className="form-group">
+            <input
+              className="form-control"
+              type="password"
+              placeholder="Confirm Password"
+              ref={passwordInput2}
+            ></input>
+          </div>
+        )}
+        <button className="btn btn-light m-3" onClick={handleSubmit} onKeyPress={handleEnterPressed}>
+          {isLoading ? 'Please wait': 'Submit'}
+        </button>
+      </form>
       <div>
         or{" "}
         <span onClick={() => setIsLogin(!isLogin)}>

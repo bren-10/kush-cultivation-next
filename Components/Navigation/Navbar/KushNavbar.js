@@ -2,6 +2,7 @@ import { useState, useEffect, Fragment, useReducer } from 'react'
 import { FaShoppingCart, FaFacebook } from 'react-icons/fa';
 import { AiFillInstagram, AiFillYoutube } from 'react-icons/ai';
 import { RiWhatsappFill } from 'react-icons/ri';
+import { GrSoundcloud } from 'react-icons/gr';
 import Link from 'next/link'
 import Image from 'next/image'
 import { useRouter } from 'next/dist/client/router';
@@ -17,6 +18,23 @@ function KushNavbar(props) {
   });
   const isUser = localStorage.getItem('kush_cultivation__thereIsUser')
 
+  function organiseByCategory(data) {
+    let obj = {}
+
+    data.forEach(item => {
+      if (!(Object.keys(obj).includes(item.category))) {
+        obj[item.category] = []
+        obj[item.category].push(item)
+      } else {
+        obj[item.category].push(item)
+      }
+    })
+
+    // Sort a-z
+    Object.keys(obj).sort()
+    return obj
+  }
+
   async function handleLogout(){
     const res = await fetch('/api/logout')
     if (res.ok){
@@ -30,13 +48,18 @@ function KushNavbar(props) {
     const response = await fetch('/api/shop-keeper')
     if (response.ok) {
       const resData = await response.json()
-
+      let sortedData = organiseByCategory(resData.data)
       setData({
         isLoading: false,
-        shop: resData
+        shop: sortedData
       })
       forceUpdate()    
     }
+  }
+  
+  // Source: https://stackoverflow.com/questions/1960473/get-all-unique-values-in-a-javascript-array-remove-duplicates
+  function onlyUnique(value, index, self) {
+    return self.indexOf(value) === index;
   }
 
   useEffect(() => {
@@ -49,7 +72,9 @@ function KushNavbar(props) {
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-        <Link href="/" className="navbar-brand" ><img alt='logo missing :(' src="/kush-logo.png"></img></Link>
+        <div className='for-hover'>
+          <Link href="/" className="navbar-brand" ><img alt='logo missing :(' src="/kush-logo.png"></img></Link>
+        </div>
         <button onClick={() => setMenuOpen(!menuOpen)} className="navbar-toggler" type="button" data-toggle="collapse" data-target="navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>
@@ -61,9 +86,8 @@ function KushNavbar(props) {
                 Shop Categories
               </span>
               <div onClick={() => setMenuOpen(false)} className="dropdown-menu" aria-labelledby="navbarDropdown">
-                {data.shop && data.shop.data.map((item, i) => (
-
-                  <Link href={`/shop/${item['category']}`} key={i}><a className="dropdown-item">{item['category']}</a></Link>
+                {Object.keys(data.shop).map((item, i) => (
+                  <Link href={`/shop/${item}`} key={i}><a className="dropdown-item">{item}</a></Link>
                 ))}
               </div>
             </li>
@@ -93,6 +117,9 @@ function KushNavbar(props) {
               }
           </ul>
           <ul className="navbar-nav right">
+            <li className="nav-item" onClick={() => setMenuOpen(false)}>
+              <a className="nav-link" href="https://soundcloud.com/counterculturelive" target="_blank" rel="noreferrer"><GrSoundcloud/></a>
+            </li>
             <li className="nav-item" onClick={() => setMenuOpen(false)}>
               <a className="nav-link" href="https://instagram.com/kush_cultivation_cpt?igshid=11ni3d91leo8y/" target="_blank" rel="noreferrer"><AiFillInstagram/></a>
             </li>

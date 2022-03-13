@@ -3,10 +3,14 @@ import { ImPlus } from "react-icons/im";
 import { useEffect, useState } from "react";
 import { toast } from 'react-toastify'
 import Image from 'next/image'
+import ImageGallery from "react-image-gallery";
+import Popup from "reactjs-popup";
 
 function ItemCard(props) {
   // const alert = useAlert();
   const [priceOption, setPriceOption] = useState('')
+  const [showGallery, setShowGallery] = useState(false)
+  const [galleryItems, setGalleryItems] = useState('')
   function selectPriceOption(e) {
     if (props.completeItem.priceStandalone) {
       return
@@ -53,16 +57,32 @@ function ItemCard(props) {
     selectPriceOption('')
   }, [])
 
+  useEffect(() => {
+    let items = []
+    props.completeItem.images.forEach(image => {
+      let objToSet = {
+        "thumbnail": `data:image;base64,${image}`,
+        "original": `data:image;base64,${image}`,
+      }
+      items.push(objToSet)
+    })
+    setGalleryItems(items)
+  }, [])
+
   return (
     <div>
+      <Popup open={showGallery} onClose={() => setShowGallery(!showGallery)}>
+        <ImageGallery items={galleryItems}/>
+      </Popup>
       <div className="item-card">
         <div className="card mb-3">
           <div className="row">
-            <div className="col-md-4">
+            <div className="col-md-4 img-container">
               <img
                 src={`data:image/png;base64,${props.completeItem.images[0]}`}
                 className="card-img"
                 alt={props.completeItem["itemName"]}
+                onClick={() => setShowGallery(true)}
               />
             </div>
             <div className="col-md-8">
@@ -93,7 +113,8 @@ function ItemCard(props) {
                   {props.completeItem.stockCount ? (
                     <span>Stock: {props.completeItem.stockCount}</span>
                   ) : (
-                    <span style={{ color: "red" }}>Out of stock</span>
+                    <span>Stock: On Request</span> 
+                    // style={{ color: "red" }}
                   )}
                 </span>
                 <hr></hr>

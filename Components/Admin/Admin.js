@@ -11,7 +11,7 @@ export default function Admin() {
   const [showPopup, setShowPopup] = useState('None')
   const categoryRef = useRef('')
   const itemNameRef = useRef('')
-  const stockCountRef = useRef(1)
+  const stockCountRef = useRef(0)
   const shDescRef = useRef('')
   const lnDescRef = useRef('')
   const dimensionsRef = useRef('')
@@ -77,7 +77,7 @@ export default function Admin() {
       if (
         categoryRef.current.value &&
         itemNameRef.current.value &&
-        stockCountRef.current.value && 
+        // stockCountRef.current.value && 
         shDescRef.current.value &&
         lnDescRef.current.value &&
         dimensionsRef.current.value && 
@@ -178,7 +178,7 @@ export default function Admin() {
   function clearFields(){
     categoryRef.current.value = ''
     itemNameRef.current.value = ''
-    stockCountRef.current.value = 1
+    stockCountRef.current.value = 0
     shDescRef.current.value = ''
     lnDescRef.current.value = ''
     dimensionsRef.current.value = ''
@@ -228,7 +228,7 @@ export default function Admin() {
         <h5>Category</h5>
         <small>
           The description of the main category (Eg. Plant Propagation, Growing Mediums and Soil)<br/>
-          Try to keep it short (4 or less words). Capitalize every word that isn't "and"/"of"/"or" etc.<br/>
+          Try to keep it short (4 or less words). Capitalize every word that isn't "and" / "of" / "or" etc.<br/>
           If the category already exists in your shop, make sure to spell it the exact same way or you might end up <br/>
           with multiple categories that mean the same.
         </small>
@@ -239,7 +239,7 @@ export default function Admin() {
         <input type="text" ref={itemNameRef}/>
 
         <h5>Stock Count</h5>
-        <small>Add your stock count for this item./</small>
+        <small>Add your stock count for this item. Currently, this is not required.</small>
         <input type="number" ref={stockCountRef}/>
 
         <h5>Short description</h5>
@@ -286,7 +286,7 @@ export default function Admin() {
         </div>
 
         <h5>Upload An Image</h5>
-        <small>Try limit file size to below 5mb, otherwise it's going to load slowly. Anything over 16mb might crash your database.</small>
+        <small>Try limit file size to below 1mb. Anything more than that will crash and not upload the image on second attempt.<br/>Keep aspect ratio in mind. Tall photos will display tall and throw off the proportions.</small>
 
         {uploadedImages[uploadedImages.length - 1] === '' &&
           <div className='file'>

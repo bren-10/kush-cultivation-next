@@ -5,6 +5,7 @@ import {toast} from "react-toastify";
 
 function Cart(props) {
   const formRef = useRef()
+  const buttonRef = useRef()
   const [, forceUpdate] = useReducer(x => x + 1, 0);
   const [cartItems, setCartItems] = useState({
     isLoading: true,
@@ -27,7 +28,7 @@ function Cart(props) {
       formRef.current[0].value = `${data['user'][0]["firstName"]} ${data['user'][0]["lastName"]}`
       formRef.current[1].value = data['user'][0]["email"]
       formRef.current[2].value = JSON.stringify(cartItems.data)
-      formRef.current.submit() // ! HERE. This refreshes the page regardless of preventDefault()
+      buttonRef.current.click()
     } else {
       toast.error("Something went wrong retrieving user info. Please contact us.")
     }
@@ -36,8 +37,8 @@ function Cart(props) {
   async function sendOrderRequest(e){
     e.preventDefault()
     let options = fetchOptions
-    options.body = JSON.stringify(formRef.current)
-    const response = await fetch ('/api/order-email', options)
+    options.body = JSON.stringify(formRef.current) // ! Here. Can't stringify, but can't go without.
+    const response = await fetch('/api/order-email', options)
     if (response.ok) {
       const data = await response.json()
       console.log(data)
@@ -112,6 +113,7 @@ function Cart(props) {
         <input hidden type="text" name="cl_name" />
         <input hidden type="text" name="to_email" />
         <input hidden type="text" name="items" />
+        <input ref={buttonRef} hidden type="submit" value="Send" />
       </form>
 
       <h1>My Cart</h1>

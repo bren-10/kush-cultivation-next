@@ -97,12 +97,11 @@ function KushNavbar(props) {
             {/* <li className="nav-item" onClick={() => setMenuOpen(false)}>
               <Link href="/contact"><a className="nav-link">Contact Us</a></Link>
             </li> */}
-              
+              <li className="nav-item cart" onClick={() => setMenuOpen(false)}>
+                <Link href='/cart'><a className="nav-link"><FaShoppingCart/> {isUser && props.cartCount}</a></Link>
+              </li>
               {isUser ? 
                 <>
-                  <li className="nav-item cart" onClick={() => setMenuOpen(false)}>
-                    <Link href='/cart'><a className="nav-link"><FaShoppingCart/> {props.cartCount}</a></Link>
-                  </li>
                   <li className="nav-item" onClick={() => setMenuOpen(false)}>
                     <Link href=""><a className="nav-link" onClick={handleLogout}>Logout</a></Link>
                   </li>

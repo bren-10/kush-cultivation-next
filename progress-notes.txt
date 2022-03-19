@@ -1,3 +1,10 @@
+19/03/2022
+
+- Finalised mobile styling
+- Finalised order request emails
+- Removed Contact Us component (due to lack of available free email templates)
+- Some minor finishing touches
+
 13/03/2022
 
 - Improved mobile styling

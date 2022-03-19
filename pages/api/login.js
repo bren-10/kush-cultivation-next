@@ -6,12 +6,16 @@ import bcrypt from 'bcrypt'
 export default withIronSessionApiRoute(
   async function handler(req, res) {
     const clData = req.body
-    console.log('pre connect')
-    Mongoose.connect(process.env.MONGO_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    })
-    console.log('post connect')
+
+    try {
+      Mongoose.connect(process.env.MONGO_URI, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+      }) 
+    } catch (error) {
+      console.log('Error!! ', error)
+    }
+
     try {
       const existingClient = await ClientModel.find({email: clData.email})
       bcrypt.compare(clData.password, existingClient[0].password, async function(err, result) {

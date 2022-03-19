@@ -15,9 +15,9 @@ function Cart(props) {
 
   const fetchOptions = {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
+    // headers: {
+    //   "Content-Type": "application/json"
+    // },
     body: ''
   }
 
@@ -35,16 +35,23 @@ function Cart(props) {
   }
 
   async function sendOrderRequest(e){
-    e.preventDefault()
-    let options = fetchOptions
-    options.body = JSON.stringify(formRef.current) // ! Here. Can't stringify, but can't go without.
-    const response = await fetch('/api/order-email', options)
-    if (response.ok) {
-      const data = await response.json()
-      console.log(data)
-    } else {
-      toast.error("Something went wrong with the order request. Please contact us.")
-    }
+    // e.preventDefault()
+    // let options = fetchOptions
+    // // let clonedForm = structuredClone(formRef)
+    // // let payload = {
+    // //   'cl_name': formRef.current[0].value,
+    // //   'to_email': formRef.current[1].value,
+    // //   'items': formRef.current[2].value
+    // // }
+    // const formData = new FormData(formRef.current)
+    // options.body = formData
+    // const response = await fetch('/api/order-email', options)
+    // if (response.ok) {
+    //   const data = await response.json()
+    //   console.log(data)
+    // } else {
+    //   toast.error("Something went wrong with the order request. Please contact us.")
+    // }
   }
 
   function onQtyChange(e, i) {
@@ -109,10 +116,10 @@ function Cart(props) {
   return (
     <div className="cart-component">
 
-      <form ref={formRef} onSubmit={sendOrderRequest}>
-        <input hidden type="text" name="cl_name" />
-        <input hidden type="text" name="to_email" />
-        <input hidden type="text" name="items" />
+      <form ref={formRef}>
+        <input hidden type="text" name="cl_name"/>
+        <input hidden type="text" name="to_email"/>
+        <input hidden type="text" name="items"/>
         <input ref={buttonRef} hidden type="submit" value="Send" />
       </form>
 

@@ -15,11 +15,12 @@ function Shop(props) {
     data: ''
   })
 
-  function onReadMore (currentItem, itemInformation){
+  function onReadMore (currentItem, itemInformation, dimensions){
     setOpenReadModal({
       _: true,
       item: currentItem,
-      data: itemInformation
+      longDesc: itemInformation,
+      dimensions: dimensions
     })
   }
 
@@ -85,7 +86,7 @@ function Shop(props) {
     <div className="shop">
       <ReadMoreModal 
         open={openReadModal._} 
-        data={openReadModal.data} 
+        longDesc={openReadModal.data} 
         item={openReadModal.item}
         onCloseReadMore={onCloseReadMore}
       />

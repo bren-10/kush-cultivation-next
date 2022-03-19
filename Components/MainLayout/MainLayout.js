@@ -8,7 +8,6 @@ function MainLayout() {
       <div className="main-layout">
         <Carousel></Carousel>
         <Visit></Visit>
-        <ContactUs></ContactUs>
       </div>
   );
 }

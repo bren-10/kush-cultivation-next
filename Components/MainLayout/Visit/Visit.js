@@ -9,7 +9,7 @@ function Visit() {
       <RiPlantFill className="plant"></RiPlantFill>
       <div className="row">
         <div className="col-lg text-center">
-          <h4>Schedule a visit below</h4>
+          <h4>Contact US</h4>
           <hr></hr>
           <h6>Email</h6>
           <a href="mailto:kushcultivation@gmail.com">
@@ -23,7 +23,7 @@ function Visit() {
           >
             <RiWhatsappFill className="comm-icon" />
           </a>
-          <h6>Call (mobile)</h6>
+          <h6>Call</h6>
           <a href="tel:+27721871099">
             <FaPhoneAlt className="comm-icon" />
           </a>

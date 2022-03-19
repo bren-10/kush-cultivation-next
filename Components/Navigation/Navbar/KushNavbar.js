@@ -91,20 +91,22 @@ function KushNavbar(props) {
                 ))}
               </div>
             </li>
-            <li className="nav-item" onClick={() => setMenuOpen(false)}>
+            <li className="nav-item gal" onClick={() => setMenuOpen(false)}>
               <Link href='/gallery'><a className="nav-link">Gallery</a></Link>
             </li>
-            <li className="nav-item" onClick={() => setMenuOpen(false)}>
+            {/* <li className="nav-item" onClick={() => setMenuOpen(false)}>
               <Link href="/contact"><a className="nav-link">Contact Us</a></Link>
-            </li>
-            <li className="nav-item cart" onClick={() => setMenuOpen(false)}>
-              <Link href='/cart'><a className="nav-link"><FaShoppingCart/> {props.cartCount}</a></Link>
-            </li>
+            </li> */}
               
               {isUser ? 
-                <li className="nav-item" onClick={() => setMenuOpen(false)}>
-                  <Link href=""><a className="nav-link" onClick={handleLogout}>Logout</a></Link>
-                </li>
+                <>
+                  <li className="nav-item cart" onClick={() => setMenuOpen(false)}>
+                    <Link href='/cart'><a className="nav-link"><FaShoppingCart/> {props.cartCount}</a></Link>
+                  </li>
+                  <li className="nav-item" onClick={() => setMenuOpen(false)}>
+                    <Link href=""><a className="nav-link" onClick={handleLogout}>Logout</a></Link>
+                  </li>
+                </>
                 :
                 <>
                   <li className="nav-item" onClick={() => setMenuOpen(false)}>

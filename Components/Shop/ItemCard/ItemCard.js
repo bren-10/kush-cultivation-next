@@ -127,7 +127,8 @@ function ItemCard(props) {
                     onClick={() =>
                       props.onReadMore(
                         props.completeItem["itemName"],
-                        `${props.completeItem.shortDescription}\n\n${props.completeItem.longDescription} Dimensions: ${props.completeItem.dimensions}`
+                        props.completeItem.longDescription,
+                        props.completeItem.dimensions
                       )
                     }
                   >

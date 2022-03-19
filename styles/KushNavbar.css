@@ -28,9 +28,9 @@
   cursor: pointer;
 }
 
-.navbar .cart {
-  border-left: rgba(146, 146, 146, 0.507) 2px solid;
-  padding-left: 1rem;
+.navbar .gal {
+  border-right: rgba(146, 146, 146, 0.507) 2px solid;
+  padding-right: 1rem;
 }
 
 .navbar-brand img{
@@ -53,17 +53,18 @@
 }
 
 @media (max-width: 450px){
-  .cart {
-    border-left: none;
-    padding: 0;
-  }
-
+  
   .nav-item {
     margin-left: auto;
   }
 }
 
 @media(max-width:1050px){
+  .gal {
+    border-right: none !important;
+    padding: 0 !important;
+  }
+
   .navbar .right {
     float: left !important;
   }

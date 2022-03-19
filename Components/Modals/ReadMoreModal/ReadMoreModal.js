@@ -7,7 +7,8 @@ function ReadMoreModal(props) {
       <div className='modal-window'>
         <h2>{props.item}</h2>
         <br></br>
-        <p>{props.data}</p>
+        <p>{props.longDesc}</p>
+        <p>{props.dimensions}</p>
         <button onClick={props.onCloseReadMore} className='btn btn-light'>Close</button>
       </div>
     </div>

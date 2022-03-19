@@ -35,7 +35,7 @@ export default function cart(props) {
       formRef.current[2].value = theItems
       buttonRef.current.click()
     } else {
-      toast.error("Something went wrong retrieving user info. Please contact us.")
+      toast.error(<p>Something went wrong retrieving user info. Please <Link href="/contact"><a className="nav-link">contact</a></Link> us.</p>)
     }
   }
 
@@ -49,19 +49,14 @@ export default function cart(props) {
       router.replace('/')
     }, (error) => {
       console.log(error)
-      toast.error("Something went wrong with your order request. Please contact us.")
-      res.status(400).json({"error": "Something went wrong."})
+      toast.error(<p>Something went wrong with your order request. Please <Link href="/contact"><a className="nav-link">contact</a></Link> us.</p>)
     });
     // Send to company
     emailjs.sendForm('service_zljq91s', 'template_d3y09wm', formRef.current, 'user_uOBFW9NrPRSxzOUxEq3V7')
     .then(() => {
-      toast.success("Order placed! Please check your mail.")
-      clearCart()
-      router.replace('/')
+      // ?
     }, (error) => {
-      console.log(error)
-      toast.error("Something went wrong with your order request. Please contact us.")
-      res.status(400).json({"error": "Something went wrong."})
+      // ?
     });
   }
 
@@ -88,15 +83,19 @@ export default function cart(props) {
   }
 
   function clearCart() {
-    let response = window.confirm("Are you sure you want to clear your cart?");
-    if (response) {
-      localStorage.removeItem("kush-cultivation__cartItems");
-      setCartItems({
-        ...cartItems,
-        data: "",
-      });
-    }
+    localStorage.removeItem("kush-cultivation__cartItems");
+    setCartItems({
+      ...cartItems,
+      data: "",
+    });
     props.changeCartCount()
+  }
+
+  function onClearCart(){
+    let response = window.confirm("Do you want to clear your cart?");
+    if (response) {
+      clearCart()
+    }
   }
 
   useEffect(() => {
@@ -129,7 +128,7 @@ export default function cart(props) {
 
       <form ref={formRef} onSubmit={sendOrderRequest}>
         <input hidden type="text" name="cl_name"/>
-        <input hidden type="text" name="to_email"/>
+        <input hidden type="text" name="cl_email"/>
         <input hidden type="text" name="items"/>
         <input ref={buttonRef} hidden type="submit" value="Send" />
       </form>
@@ -191,7 +190,7 @@ export default function cart(props) {
             <button
               className="btn btn-sm btn-light float-left"
               style={{ fontWeight: "600" }}
-              onClick={clearCart}
+              onClick={onClearCart}
             >
               Clear All
             </button>

@@ -30,7 +30,7 @@ function Cart(props) {
       formRef.current[2].value = JSON.stringify(cartItems.data)
       buttonRef.current.click()
     } else {
-      toast.error("Something went wrong retrieving user info. Please contact us.")
+      toast.error(<p>Something went wrong retrieving user info.<Link href="/contact"><a className="nav-link">contact</a></Link> us.</p>)
     }
   }
 

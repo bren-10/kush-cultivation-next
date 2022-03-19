@@ -1,6 +1,9 @@
 import emailjs from 'emailjs-com';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
+import { GrMail } from "react-icons/gr";
+import { FaPhoneAlt } from "react-icons/fa";
+import { RiWhatsappFill } from 'react-icons/ri'
 
 export default function ContactUs() {
 
@@ -19,7 +22,7 @@ export default function ContactUs() {
       }, (error) => {
         toast.error('There was a problem sending your query.')
       });
-    
+
     setName('')
     setEmail('')
     setQuery('')
@@ -27,9 +30,9 @@ export default function ContactUs() {
   }
 
   return (
-    <div className='contact-us'>
-      <h2>Have a question?</h2>
-      <form onSubmit={handlesSubmit}>
+    <div style={{marginTop: '8rem'}}>
+      
+      {/* <form onSubmit={handlesSubmit}>
         <div className="form-group">
           <label>Your Name</label>
           <input name='from_name' value={name} onChange={(e) => setName(e.target.value)} type="text" className="form-control" id="name" aria-describedby="emailHelp" placeholder="Your Name"/>
@@ -43,7 +46,28 @@ export default function ContactUs() {
           <textarea name='message' value={query} onChange={(e) => setQuery(e.target.value)} required cols='50' rows='5' className='form-control'></textarea>
         </div>
         <button type="submit" className="btn btn-light" disabled={loading}>{loading ? "Please wait" : "Submit"}</button>
-      </form>
+      </form> */}
+
+      <div className="text-center visit">
+      <h2>Have a question?</h2>
+        <hr></hr>
+        <h6>Email</h6>
+        <a href="mailto:kushcultivation@gmail.com">
+          <GrMail className="comm-icon" />
+        </a>
+        <h6>Whatsapp</h6>
+        <a
+          href="https://wa.me/27721871099?text=Hi!%20I%20Have%20a%20query..."
+          target="_blank"
+          rel="noreferrer"
+        >
+          <RiWhatsappFill className="comm-icon" />
+        </a>
+        <h6>Call</h6>
+        <a href="tel:+27721871099">
+          <FaPhoneAlt className="comm-icon" />
+        </a>
+      </div>
     </div>
   )
 }

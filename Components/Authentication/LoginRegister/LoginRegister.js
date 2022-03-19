@@ -160,7 +160,7 @@ function LoginRegister(props) {
           {isLogin ? "Register" : "Login"}
         </span>
       </div>
-      {isLogin && <Link href="/reset-password"><a>Forgot Password?</a></Link>}
+      {isLogin && <Link href="/contact"><a>Forgot Password?</a></Link>}
     </div>
   );
 }

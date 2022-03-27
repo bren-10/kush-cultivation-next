@@ -46,12 +46,15 @@ function LoginRegister(props) {
           "password": passwordInput.current.value
         }
 
-        options.method = "GET"
+        // options.method = "GET"
         options.body = JSON.stringify(registrationInfo)
 
         const res = await fetch('/api/register', options)
         if (res.status === 200) {
           router.replace('/auth/login')
+          setIsLogin(true)
+          emailInput.current.value = ''
+          passwordInput.current.value = ''
           toast.success("Successfully Registered! Please log in.")
         } else {
           const errMsg = res.body.data

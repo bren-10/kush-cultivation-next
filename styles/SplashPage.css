@@ -32,6 +32,22 @@
   animation-delay: 1.5s;
 }
 
+.cookie-acceptance {
+  position: absolute;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.638);
+  width: 100%;
+}
+
+.cookie-acceptance p{
+  position: relative;
+  text-align: center;
+  margin: 0 auto;
+  padding: 0.5rem 0;
+  color: rgb(196, 196, 196);
+  font-weight: 600;
+}
+
 @keyframes appearances {
   0% {
     opacity: 0;

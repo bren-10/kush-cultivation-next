@@ -12,7 +12,8 @@ function Shop(props) {
   const [openReadModal, setOpenReadModal] = useState({
     _: false,
     item: '',
-    data: ''
+    longDesc: '',
+    dimensions: ''
   })
 
   function onReadMore (currentItem, itemInformation, dimensions){
@@ -28,7 +29,8 @@ function Shop(props) {
     setOpenReadModal({
       _: false,
       item: '',
-      data: ''
+      longDesc: '',
+      dimensions: ''
     })
   }
 
@@ -86,7 +88,8 @@ function Shop(props) {
     <div className="shop">
       <ReadMoreModal 
         open={openReadModal._} 
-        longDesc={openReadModal.data} 
+        longDesc={openReadModal.longDesc}
+        dimensions={openReadModal.dimensions} 
         item={openReadModal.item}
         onCloseReadMore={onCloseReadMore}
       />

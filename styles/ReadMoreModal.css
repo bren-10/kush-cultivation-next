@@ -1,6 +1,6 @@
 .read-more-modal {
   background-color: rgba(0, 0, 0, 0.541);
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 0;
   bottom: 0;

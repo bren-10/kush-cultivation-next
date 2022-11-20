@@ -1,6 +1,6 @@
 .read-more-modal {
   background-color: rgba(0, 0, 0, 0.541);
-  position: fixed;
+  position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
@@ -11,7 +11,7 @@
 
 .read-more-modal .modal-window {
   z-index: 1000;
-  position: absolute;
+  position: fixed;
   background: #161614f6;
   color: #ECECEC;
   top: 50%;
